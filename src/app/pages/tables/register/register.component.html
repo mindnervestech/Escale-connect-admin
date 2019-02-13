@@ -1,0 +1,64 @@
+
+<div>
+	<div style="text-align: center;">
+		<h1 id="title" class="title">Ragester</h1>
+	</div>
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<div>
+				<label class="label" for="input-email">Full name:</label>
+			</div>
+			<div>
+				<input type="text" name="full_name" placeholder="Full name" class="input-field" [(ngModel)]="name" (ngModelChange) = "checkName($event)">
+				<div *ngIf="emptyName" class="invalid-feedback">
+					Name is required!
+				</div>
+			</div>
+			<div class="margin-top30">
+				<label class="label" for="input-email">Email address:</label>
+			</div>
+			<div>
+				<input type="text" name="eamil" placeholder="Email address" class="input-field" [(ngModel)]="email" (ngModelChange) = "checkEmail($enent)">
+				<div *ngIf="emptyEmail" class="invalid-feedback">
+					Email is required!
+				</div>
+				<div *ngIf="validEmail" class="invalid-feedback">
+					Inviled Email address!
+				</div>
+			</div>
+			<div class="margin-top30">
+				<label class="label" for="input-email">Password:</label>
+			</div>
+			<div>
+				<input type="password" name="password" placeholder="Password" class="input-field" [(ngModel)]="password" (ngModelChange) = "checkPassword($enent)">
+				<div *ngIf="emptyPassword" class="invalid-feedback">
+					Password is required!
+				</div>
+			</div>
+			<div class="margin-top30">
+				<label class="label" for="input-email">Repeat Password:</label>
+			</div>
+			<div>
+				<input type="text" name="re_password" placeholder="Confirm password" class="input-field" [(ngModel)]="confirmPassword" (ngModelChange) = "checkconfirmPassword($enent)">
+				<div *ngIf="emptyConfirmPassword" class="invalid-feedback">
+					Confirm password is required!
+				</div>
+				<div *ngIf="passwordMatch" class="invalid-feedback">
+					Password not match!
+				</div>
+				<div *ngIf="emailUsed" class="invalid-feedback">
+					The email address is already in use by another account!
+				</div>
+			</div>
+			<div>
+				<button class="login-btn" (click)="Ragester()">
+			    Ragester
+			  </button>
+			</div>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+</div>
+
+	

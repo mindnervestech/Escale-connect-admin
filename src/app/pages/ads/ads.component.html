@@ -1,0 +1,18 @@
+<div style="text-align: center;font-weight: 600;">
+	<h1 style="margin-top: 0px;margin-bottom: 0px;">Create Ads</h1>
+</div>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+		<div style="margin-top: 30px;">
+			<label class="label" for="input-email">Ads name:</label>
+		</div>
+		<div>
+			<input type="text" name="adsName" placeholder="Ads name" class="input-field" [(ngModel)]="adsName">
+		</div>
+		<div style="margin-top: 30px;font-size: 17px;">
+			<input type="file" accept="image/*" [(ngModel)]="imageName"  (change)="upload($event)">
+		</div>
+	</div>
+	<div class="col-md-3"></div>
+</div>

@@ -1,0 +1,81 @@
+<div style="text-align: center;">
+	<h1 id="title" class="title">Create Room</h1>
+</div>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+		<div>
+			<label class="label" for="input-email">Room name:</label>
+		</div>
+		<div>
+			<input type="text" name="roomName" placeholder="Room name" class="input-field" [(ngModel)]="roomName">
+		</div>
+		<div class="row">
+			<div class="col-md-3">
+				<button class="active" id="b1" (click)="option('Train')">Trian</button>
+			</div>
+			<div class="col-md-3">
+				<button class="active" id="b2" (click)="option('Flight')">Flight</button>
+			</div>
+			<div *ngIf="optionSelect" class="invalid-feedback">
+				Please select one option!
+			</div>
+		</div>
+		<div style="margin-top: 30px;">
+			<label class="label" for="input-email">Trip number:</label>
+		</div>
+		<div>
+			<input type="text" name="number" placeholder="Trip number" class="input-field" [(ngModel)]="tripeNumber">
+		</div>
+		<div style="margin-top: 30px;">
+			<label class="label" for="input-email">Trip Date:</label>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<input type="text" name="date" class="input-field" maxlength="4" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Year" [(ngModel)]="year">
+			</div>
+			<div class="col-md-3">
+				<input type="text" name="date" class="input-field" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Month" [(ngModel)]="month">
+			</div>
+			<div class="col-md-3">
+				<input type="text" name="date" class="input-field" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Day" [(ngModel)]="day">
+			</div>
+		</div>
+		<div class="row" style="margin-top: 30px;">
+			<div class="col-md-6">
+				<div><label class="label" for="input-email">Trip start time:</label></div>
+				<div class="row">
+					<div class="col-md-5">
+						<input type="text" name="date" class="input-field" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Hours" [(ngModel)]="startTimehr">
+					</div>
+					<div class="col-md-5">
+						<input type="text" name="date" class="input-field" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="minute" [(ngModel)]="startTimemin">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div><label class="label" for="input-email">Trip end time:</label></div>
+				<div class="row">
+					<div class="col-md-5">
+						<input type="text" name="date" class="input-field" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Hours" [(ngModel)]="endTimehr">
+					</div>
+					<div class="col-md-5">
+						<input type="text" name="date" class="input-field" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="minute" [(ngModel)]="endTimemin">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="margin-top: 10px;">
+			Please add time in 24 hr format
+		</div>
+		<div *ngIf="allField" class="invalid-feedback">
+			Please fill all field!
+		</div>
+		<div>
+			<button class="login-btn" (click)="createRoom()">
+			    Create Room
+			  </button>
+		</div>
+	</div>
+	<div class="col-md-3"></div>
+</div>

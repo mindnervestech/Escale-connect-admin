@@ -1,0 +1,43 @@
+<div class="card1">
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6" style="text-align: center;font-weight: 600;">
+			<h1 style="margin-top: 0px;margin-bottom: 0px;">Group Details</h1>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+</div>
+<div class="card" style="margin-top: 30px;">
+	<div *ngIf="emptyTable" style="text-align: center;font-size: 20px;margin-bottom: 20px;">
+		In system group not available
+	</div>
+	<table class="table table-fixed" *ngIf="!emptyTable">
+		<thead class="table-width-row">
+			<tr>
+				<th class="table-th" style="width: 16%;">Room Name</th>
+				<th class="table-th" style="width: 13.5%;">Trip Number</th>
+				<th class="table-th" style="width: 13.5%;">Trip Date</th>
+				<th class="table-th" style="width: 13.5%;">Start Time</th>
+				<th class="table-th" style="width: 13.5%;">End Time</th>
+				<th class="table-th" style="width: 12%;">Type</th>
+				<th class="table-th" style="width: 10%;">Active Status</th>
+				<th class="table-th" style="width: 8%;">Delete</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr *ngFor="let data of groupList">
+				<td class="table-th" style="width: 16%;cursor: pointer;" (click)="goToGroupChatShoePage(data)">{{data.groupName}}</td>
+				<td class="table-th" style="width: 13.5%;" >{{data.trainNumber}}</td>
+				<td class="table-th" style="width: 13.5%;">{{data.tripeDate}}</td>
+				<td class="table-th" style="width: 13.5%;">{{data.startTime}}</td>
+				<td class="table-th" style="width: 13.5%;">{{data.endTime}}</td>
+				<td class="table-th" style="width: 12%;">{{data.type}}</td>
+				<td class="table-th" style="width: 10%;">{{data.activeStatus}}</td>
+				<td class="table-th" style="width: 8%;">
+					<button (click)="deleteGroup(data)">Delete</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

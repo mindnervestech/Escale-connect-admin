@@ -1,0 +1,19 @@
+.table-th{
+	text-align: center;
+}
+.card{
+    max-height: 520px;
+    padding: 25px 10px 0px;
+    border-radius: 10px;
+    border: solid 1px #3d3780;
+    background-color: #3d3780;
+    box-shadow: 5px 5px 5px 0 #a4abb373;
+}
+.card1{
+	height: auto;
+    padding: 25px 10px 20px;
+    border-radius: 10px;
+    border: solid 1px #3d3780;
+    background-color: #3d3780;
+    box-shadow: 5px 5px 5px 0 #a4abb373;
+}

@@ -1,0 +1,52 @@
+<div class="card1">
+	<div class="row">
+		<div class="col-md-2">
+			<button class="login-btn" (click)="goToBack()">Return</button>
+		</div>
+		<div class="col-md-6"></div>
+		<div class="col-md-2">
+			<button class="login-btn" (click)="getGroupChat()"style="float: right;">All Messages</button>
+		</div>
+		<div class="col-md-2">
+			<button class="login-btn" (click)="getLatestChat()">Latest Messages</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8" style="text-align: center;font-weight: 600;">
+			<h1 style="margin-top: 0px;margin-bottom: 0px;">User Chat Data</h1>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+</div>
+<div class="card" style="margin-top: 30px;">
+	<div *ngIf="emptyTable" style="text-align: center;font-size: 20px;margin-bottom: 20px;">
+		In system user chat not available
+	</div>
+	<table class="table table-fixed" style="margin-bottom: 0px;" *ngIf="!emptyTable">
+		<thead>
+			<tr>
+				<th class="table-th" style="width: 25%;">Date</th>
+				<th class="table-th" style="width: 25%;">Name</th>
+				<th class="table-th" style="width: 50%;">Message</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr *ngFor="let data of userChatList">
+				<td class="table-th" style="width: 25%;">{{data.DateCreated}}</td>
+				<td class="table-th" style="width: 25%;">
+					<div class="row">
+						<div class="col-md-3">
+							<img src="{{data.profilePic}}" style="width: 35px;height: 35px;border-radius: 50%;border:solid 2px #fff;">
+						</div>
+						<div class="col-md-9">
+							{{data.name}}
+						</div>
+					</div>
+				</td>
+				<td class="table-th" style="width: 50%;">{{data.message}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

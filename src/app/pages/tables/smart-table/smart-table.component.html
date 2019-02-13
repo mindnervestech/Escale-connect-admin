@@ -1,0 +1,41 @@
+
+<div>
+	<div style="text-align: center;">
+		<h1 id="title" class="title">Login</h1>
+		<p class="sub-title">Hello! Log in with your email.</p>
+	</div>
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<div>
+				<label class="label" for="input-email">Email address:</label>
+			</div>
+			<div>
+				<input type="text" name="email" placeholder="Email address" class="input-field" [(ngModel)]="email" (ngModelChange) = "checkEmail($event)">
+				<div *ngIf="emptyEmail" class="invalid-feedback">
+					Email is required!
+				</div>
+			</div>
+			<div style="margin-top: 30px;">
+				<label class="label" for="input-email">Password:</label>
+			</div>
+			<div>
+				<input type="password" name="Password" placeholder="Password" class="input-field" [(ngModel)]="password" (ngModelChange) = "checkPassword($event)">
+				<div *ngIf="emptyPassword" class="invalid-feedback">
+					Password is required!
+				</div>
+				<div *ngIf="validData" class="invalid-feedback">
+						Email Or Password is Inviled!
+				</div>
+			</div>
+			<div>
+				<button class="login-btn" (click)="login()">
+			    Log In
+			  </button>
+			</div>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+</div>
+
+	
