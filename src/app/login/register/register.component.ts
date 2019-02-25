@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';  
-//declare var firebase;
+//import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import * as firebase from 'firebase/app';
 import { Router,ActivatedRoute } from "@angular/router";
+import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';  
 
 @Component({
   selector: 'ngx-register',
   templateUrl: './register.component.html',
-  //styles: ['./smart-table.component.css'],
   styleUrls:  ['./register.component.css'],
 })
 export class RegisterComponent {
@@ -23,10 +23,11 @@ export class RegisterComponent {
 	private passwordMatch = false;
 	private emailUsed = false;
 
-  constructor(private db: AngularFireDatabase,private router: Router) {
-  	
-  }
-  Ragester(){
+	constructor(private db: AngularFireDatabase,private router: Router,private route: ActivatedRoute){
+
+	}
+
+	 Ragester(){
 	var data = {
 		name : this.name,
 		email : this.email
@@ -62,10 +63,10 @@ export class RegisterComponent {
           }
         }
     if(me.passwordMatch == false && me.emptyName == false && me.emptyEmail == false && me.validEmail == false && me.emptyPassword == false && me.emptyConfirmPassword == false){
-    	firebase.auth().createUserWithEmailAndPassword(this.email,this.password).then(function (user) {
+    	firebase.auth().createUserWithEmailAndPassword(me.email,me.password).then(function (user) {
 			console.log(user);
 			me.db.list('/adminUser').push(data);
-			this.router.navigate(["tables"]);
+			me.router.navigate(["login/signin"]);
 		}).catch(function(error) {
 		  console.log(error);
 		  me.emailUsed = true;

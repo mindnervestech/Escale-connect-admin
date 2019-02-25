@@ -26,12 +26,12 @@ export class ECommerceComponent {
 	private value = "";
 	private optionSelect = false;
 	constructor(private db: AngularFireDatabase,private router: Router){
-		var user = JSON.parse(localStorage.getItem("user"));
+		/*var user = JSON.parse(localStorage.getItem("user"));
 		console.log("user",user);
         if (user == null) {
         	console.log("in");
             this.router.navigate(["pages/tables/smart-table"]);
-        }
+        }*/
 	}
 
 	ngOnInit(){

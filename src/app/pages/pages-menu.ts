@@ -224,24 +224,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },*/
   {
-    title: 'Auth',
-    icon: 'nb-locked',
-    children: [
-      {
-        title: 'Login',
-        link: '/pages/tables/smart-table',
-      },
-      {
-        title: 'Register',
-        link: '/pages/tables/register',
-      },
-      {
-        title: 'Logout',
-        link: '/pages/tables/logout',
-      },
-    ],
-  },
-  {
     title: 'Table',
     icon: 'nb-tables',
     children: [
@@ -252,6 +234,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'User',
         link: '/pages/dataInTable/user',
+      },
+      {
+        title: 'Ads',
+        link: '/pages/dataInTable/ads-detail',
       },
     ],
   },

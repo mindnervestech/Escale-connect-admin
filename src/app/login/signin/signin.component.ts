@@ -1,24 +1,33 @@
 import { Component } from '@angular/core';
+//import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import * as firebase from 'firebase/app';
 import { Router,ActivatedRoute } from "@angular/router";
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';  
 
 @Component({
-  selector: 'ngx-smart-table',
-  templateUrl: './smart-table.component.html',
-  //styles: ['./smart-table.component.css'],
-  styleUrls:  ['./smart-table.component.css'],
+  selector: 'ngx-signin',
+  templateUrl: './signin.component.html',
+  styleUrls:  ['./signin.component.css'],
 })
-export class SmartTableComponent {
+export class SigninComponent {
 	private password = "";
 	private email = "";
 	private validData = false;
 	private emptyEmail = false;
 	private emptyPassword = false;
-  constructor(private db: AngularFireDatabase,private router: Router) {
-  }
 
-  login(){
+	constructor(private db: AngularFireDatabase,private router: Router,private route: ActivatedRoute){
+   /* var user = JSON.parse(localStorage.getItem("user"));
+    if (user != null) {
+      this.router.navigate(["pages/dashboard"]);
+    }*/
+	}
+
+	ngOnInit(){
+
+	}
+	login(){
   	var me = this;
   	if(me.email == ""){
   		me.emptyEmail = true;
@@ -38,8 +47,9 @@ export class SmartTableComponent {
             };
             localStorage.setItem("user", JSON.stringify(myDetail));
           }
+          me.router.navigate(["pages/dashboard"]);
           console.log("login");
-          me.router.navigate(["dashboard"]);
+          window.location.reload();
         });
   		
 	  	}).catch(function(error) {
@@ -47,16 +57,6 @@ export class SmartTableComponent {
 		  me.validData = true;
 		});
   	}
-  	
-  	/*firebase.auth().createUserWithEmailAndPassword(this.email, this.password).catch(function(error) {
-	  // Handle Errors here.
-	  var errorCode = error.code;
-	  var errorMessage = error.message;
-	  console.log(errorCode);
-	  console.log(errorMessage);
-	  // ...
-	});*/
-	
   }
   checkPassword(event){
   	this.emptyPassword = false;
@@ -65,6 +65,9 @@ export class SmartTableComponent {
   checkEmail(event){
   	this.emptyEmail = false;
   	this.validData = false;
+  }
+  goToRagestationPage(){
+  	this.router.navigate(["login/register"]);
   }
 
 }

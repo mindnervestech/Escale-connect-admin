@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { dataInTableComponent } from './dataInTable.component';
 import { groupComponent } from './group/group.component';
 import { userComponent } from './user/user.component';
+import { AdsDetailComponent } from './ads-detail/ads-detail.component';
 
 const routes: Routes = [{
   path: '',
@@ -14,6 +15,9 @@ const routes: Routes = [{
   },{
     path: 'user',
     component: userComponent,
+  },{
+    path: 'ads-detail',
+    component: AdsDetailComponent,
   }],
 }];
 
@@ -27,4 +31,5 @@ export const routedComponents = [
   dataInTableComponent,
   groupComponent,
   userComponent,
+  AdsDetailComponent,
 ];

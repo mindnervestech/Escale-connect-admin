@@ -13,10 +13,10 @@ export class groupComponent {
   public emptyTable = false;
 
   constructor(private db: AngularFireDatabase,private router: Router) {
-    var user = JSON.parse(localStorage.getItem("user"));
+   /* var user = JSON.parse(localStorage.getItem("user"));
         if (user == null) {
             this.router.navigate(["pages/tables/smart-table"]);
-        }
+        }*/
   }
 
   ngOnInit(){

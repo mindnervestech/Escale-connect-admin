@@ -1,11 +1,11 @@
 ::placeholder {
-	color: #fff;
+    color: #fff;
 }
 ::-ms-input-placeholder { 
  color: #fff;
 }
 .login-btn{
-	background-color: #00d977;
+    background-color: #00d977;
     width: 100%;
     margin-top: 30px;
     border: solid 1px;
@@ -14,7 +14,7 @@
     border-color: #28a745;
 }
 .input-field{
-	background-color: #352f7d;
+    background-color: #352f7d;
     border: 2px solid #4b43a7;
     color: #ffffff;
     font-size: 1rem;
@@ -22,7 +22,7 @@
     width: 100%;border-radius: 7px;
 }
 .text-link{
-	color: #a1a1e5;
+    color: #a1a1e5;
     font-weight: 600;
     cursor: pointer;
 }

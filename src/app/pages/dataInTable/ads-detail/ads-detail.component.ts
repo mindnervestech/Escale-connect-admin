@@ -4,11 +4,11 @@ import * as firebase from 'firebase/app';
 import { Router,ActivatedRoute } from "@angular/router";
 
 @Component({
-  selector: 'ngx-user',
-  templateUrl: './user.component.html',
-  styleUrls:  ['./user.component.css'],
+  selector: 'ngx-ads-detail',
+  templateUrl: './ads-detail.component.html',
+  styleUrls:  ['./ads-detail.component.css'],
 })
-export class userComponent {
+export class AdsDetailComponent {
   public userList = [];
   public emptyTable = false;
 

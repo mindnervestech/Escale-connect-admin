@@ -1,22 +1,25 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-import { PagesComponent } from './pages.component';
-//import { DashboardComponent } from './dashboard/dashboard.component';
-import { ECommerceComponent } from './e-commerce/e-commerce.component';
+import { LoginComponent } from './login.component';
+import { SigninComponent } from './signin/signin.component';
+import { RegisterComponent } from './register/register.component';
+/*import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { GroupChatComponent } from './group-chat/group-chat.component';
 import { UserChatComponent } from './user-chat/user-chat.component';
-import { AdsComponent } from './ads/ads.component';
-//import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
+import { AdsComponent } from './ads/ads.component';*/
 
 const routes: Routes = [
 {
   path: '',
-  component: PagesComponent,
+  component: LoginComponent,
   children: [{
-    path: 'dashboard',
-    component: ECommerceComponent,
+    path: 'signin',
+    component: SigninComponent,
   },{
+    path: 'register',
+    component: RegisterComponent,
+  },/*{
     path: 'groupChat',
     component: GroupChatComponent,
   },{
@@ -25,7 +28,7 @@ const routes: Routes = [
   },{
     path: 'ads',
     component: AdsComponent,
-  },
+  },*/
   /* {
     path: 'iot-dashboard',
     component: DashboardComponent,
@@ -50,18 +53,21 @@ const routes: Routes = [
   },*/ /*{
     path: 'forms',
     loadChildren: './forms/forms.module#FormsModule',
+  },*/ /*{
+    path: 'tables',
+    loadChildren: './tables/tables.module#TablesModule',
   },*//*{
     path: 'login',
     loadChildren: './login/login.module#LoginModule',
-  },*/{
+  },*//*{
     path: 'dataInTable',
     loadChildren: './dataInTable/dataInTable.module#dataInTableModule',
-  }, /*{
+  },*/ /*{
     path: 'miscellaneous',
     loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule',
   },*/ {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'signin',
     pathMatch: 'full',
   }, /*{
     path: '**',
@@ -73,5 +79,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class PagesRoutingModule {
+export class LoginRoutingModule {
 }

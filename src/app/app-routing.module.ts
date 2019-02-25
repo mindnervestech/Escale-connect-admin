@@ -14,6 +14,7 @@ const routes: Routes = [
     path: 'register', component: RegisterComponent
   },*/
   { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },
+  { path: 'login', loadChildren: 'app/login/login.module#LoginModule' },
   {
     path: 'auth',
     component: NbAuthComponent,
@@ -44,8 +45,8 @@ const routes: Routes = [
       },
     ],
   },
-  { path: '', redirectTo: 'pages', pathMatch: 'full' },
-  { path: '**', redirectTo: 'pages' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login' },
 ];
 
 const config: ExtraOptions = {
