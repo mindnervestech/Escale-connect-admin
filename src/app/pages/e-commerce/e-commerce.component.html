@@ -77,5 +77,14 @@
 			  </button>
 		</div>
 	</div>
-	<div class="col-md-3"></div>
+	<div class="col-md-3">
+		<!-- started  excel read ui-->
+		<input type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">
+		<button type="button" class="btn btn-info" (click)="Upload()" >Upload</button>
+		<select [(ngModel)]="journyType" required>
+          <option  *ngFor="let journey of journeyTypeData" [ngValue]="journey.name">{{journey.name}}</option>
+        </select>
+        <br>
+        <!-- end excel read ui-->
+	</div>
 </div>
