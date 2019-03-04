@@ -240,10 +240,9 @@ export class ECommerceComponent {
 	  	console.log('currentTimeAndDate', currentTimeAndDate);
 	    firebase.database().ref('/Group').on('value',function(group){
 		    for(var data in group.val()) {
-		    	console.log('time and data', group.val()[data].endDateTIme, currentTimeAndDate)
-		    	var startDateAndTime = me.updateStartDate(group.val()[data].startDateTime);
-		    	var endDateAndTime = me. updateEndDate(group.val()[data].endDateTIme);
-		    	if(Date.parse(group.val()[data].endDateTIme) <= currentTimeAndDate.getTime()) {
+		    	if (Date.parse(group.val()[data].endDateTIme) <= currentTimeAndDate.getTime()) {
+		    		var startDateAndTime = me.updateStartDate(group.val()[data].startDateTime);
+		    		var endDateAndTime = me.updateEndDate(group.val()[data].endDateTIme);
 		    		firebase.database().ref('Group/'+ data).update({
 		    			"startDateTime": startDateAndTime, 
 						"endDateTIme": endDateAndTime, 
@@ -252,7 +251,7 @@ export class ECommerceComponent {
 				    firebase.database().ref('GroupMember/'+ group.val()[data].groupId).remove();
 				    firebase.database().ref('GroupChats/'+ group.val()[data].groupId).remove();
 		    	}
-		    	else if(Date.parse(startDateAndTime) <= currentTimeAndDate.getTime() && Date.parse(endDateAndTime) >= currentTimeAndDate.getTime()) {
+		    	else if(Date.parse(group.val()[data].startDateTime) <= currentTimeAndDate.getTime() && Date.parse(group.val()[data].endDateTIme) >= currentTimeAndDate.getTime()) {
 		    		firebase.database().ref('Group/' + data).update({
 						"groupActivated": true
 		    		});
