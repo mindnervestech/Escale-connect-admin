@@ -13,7 +13,6 @@ import { LayoutService } from '../../../@core/utils';
 export class HeaderComponent implements OnInit {
 
   @Input() position = 'normal';
-
   user: any;
 
   //userMenu = [{ title: 'Profile' }, { title: 'Log out' }];

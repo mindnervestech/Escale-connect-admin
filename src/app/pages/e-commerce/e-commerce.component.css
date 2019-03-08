@@ -42,3 +42,32 @@
     font-size: 100%;
     color: #dc3545;
 }
+.upload-file input{
+    display: inline-block;
+    padding: 0px 0px;
+    line-height: 2.1;
+    /* max-width: 37%; */
+}
+.upload-file select{
+    padding: 8px 0;
+    margin-right: 23px;
+    width: 83%;
+}
+.upload-file button{
+    padding: 8px 14px;
+    display: block;
+    width: 28%;
+    margin: 34px auto;
+    background: #00d977 !important;
+    color: #000;
+    text-transform: capitalize;
+}
+.room-btn{
+    padding: 7px 9px;
+    border: 0;
+    background: #fff;
+    position: fixed;
+}
+button:focus {
+    outline: 0px auto -webkit-focus-ring-color;
+}

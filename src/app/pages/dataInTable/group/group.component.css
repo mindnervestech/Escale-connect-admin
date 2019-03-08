@@ -17,3 +17,10 @@
     background-color: #3d3780;
     box-shadow: 5px 5px 5px 0 #a4abb373;
 }
+.navigate{
+    position: absolute;
+    right: 20px;
+    padding: 7px 9px;
+    border: 0;
+    background: #fff;
+}

@@ -11,7 +11,7 @@ import { Router,ActivatedRoute } from "@angular/router";
 export class AdsDetailComponent {
   public userList = [];
   public emptyTable = false;
-
+  public adsList = [];
   constructor(private db: AngularFireDatabase,private router: Router) {
     /*var user = JSON.parse(localStorage.getItem("user"));
         if (user == null) {
@@ -40,6 +40,7 @@ export class AdsDetailComponent {
         me.emptyTable = false;
       }
     });
+    me.getAllAds();
   }
 
   goToChatPage(data){
@@ -51,7 +52,42 @@ export class AdsDetailComponent {
       }
     });
   }
-
+  getAllAds(){
+    var me = this;
+    firebase.database().ref('/Ads').on('value',function(group){
+      console.log("group",group.val());
+      // for(var data in group.val()){
+      //    var value = {
+      //       endTime : group.val()[data].endTime,
+      //       groupId:  group.val()[data].groupId,
+      //       groupName :  group.val()[data].groupName,
+      //       startTime :  group.val()[data].startTime,
+      //       trainNumber :  group.val()[data].trainNumber,
+      //       tripeDate :  group.val()[data].tripeDate,
+      //       type :  group.val()[data].type,
+      //       activeStatus : status,
+      //       key : data,
+      //    };
+      //    me.adsList.push(value);
+      // }
+      // var grp = group.val();
+      // console.log("grp",grp,grp.length);
+      // for(var i= 0;i < grp.length;i++){
+      //   for(var j= 0;j < grp[i].length;j++){
+      //     console.log("push",grp[i][j]);
+      //   }
+      // }
+      for(var data in group.val().business){
+        // const values = Object.keys(data).map(key => data[key]);
+        // const commaJoinedValues = values.join(",");
+        // console.log("commaJoinedValues",commaJoinedValues);
+        let fieldValues = JSON.parse(data);
+        let keys = Object.keys(fieldValues);
+        let values = keys.map(keys => fieldValues[keys])
+        console.log("values",values);
+      }
+    });
+  }
   tripeDateValidation(ripeDate,startDate,endDate){
         var msg = "";
         var convertDate = ripeDate.split("-");

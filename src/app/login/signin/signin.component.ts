@@ -49,7 +49,7 @@ export class SigninComponent {
           }
           me.router.navigate(["pages/dashboard"]);
           console.log("login");
-          window.location.reload();
+          //window.location.reload();
         });
   		
 	  	}).catch(function(error) {

@@ -58,3 +58,15 @@
     font-size: 100%;
     color: #dc3545;
 }
+.save{
+    background-color: #00d977;
+    width: 100%;
+    margin-top: 30px;
+    border: solid 1px;
+    border-radius: 7px;
+    height: 40px;
+    border-color: #28a745;
+}
+select{
+    padding: 7px 4px;
+}

@@ -26,8 +26,9 @@ export class ECommerceComponent {
 	private allField = false;
 	private value = "";
 	private optionSelect = false;
-	private journeyTypeData = [{id: 1, name: 'Train'},{id: 2, name:'Flight'}];
-	private journyType:any;
+	private journyType: any;
+	upload: boolean = true;
+	private journeyTypeData = [{id: 1, name: 'Train'},{id: 2, name:'Flight'}]
 	arrayBuffer:any;
 	file:File;
 	constructor(private db: AngularFireDatabase,private router: Router){
@@ -43,7 +44,9 @@ export class ECommerceComponent {
 	incomingfile(event) {
 	  this.file= event.target.files[0]; 
 	}
-
+	uploadBtn(){
+		this.upload = !this.upload;
+	}
 	// reading  data from excel and uploading data in firebase
 	Upload() {
 		var me = this;

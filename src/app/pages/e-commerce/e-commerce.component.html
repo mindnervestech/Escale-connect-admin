@@ -1,9 +1,18 @@
-<div style="text-align: center;">
+<div>
+	<button class="room-btn" type="button" (click)="uploadBtn()">
+		<span *ngIf="!upload">Create Room</span>
+		<span *ngIf="upload">Upload Room</span>
+	</button>
+</div>
+<div style="text-align: center;" *ngIf="upload">
 	<h1 id="title" class="title">Create Room</h1>
+</div>
+<div style="text-align: center;" *ngIf="!upload">
+	<h1 id="title" class="title">Upload Room</h1>
 </div>
 <div class="row">
 	<div class="col-md-3"></div>
-	<div class="col-md-6">
+	<div class="col-md-6" *ngIf="upload">
 		<div>
 			<label class="label" for="input-email">Room name:</label>
 		</div>
@@ -77,14 +86,33 @@
 			  </button>
 		</div>
 	</div>
-	<div class="col-md-3">
-		<!-- started  excel read ui-->
-		<input type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">
+	<div class="col-md-6" *ngIf="!upload">
+		<div class="row upload-file" style="margin-top: 25px;">
+			<div class="col-md-12">
+				<!-- started  excel read ui-->
+				<div style="display: inline-block;width: 41%;margin-left: 51px;">
+					<input type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">
+				</div>
+				<div style="display: inline-block;width: 37%;">
+					<span>
+						<label class="label">Select Train/Flight</label>
+					</span>
+					<select [(ngModel)]="journyType" placeholder="Select Train/Flight" required>
+						<option  *ngFor="let journey of journeyTypeData" [ngValue]="journey.name">{{journey.name}}</option>
+					</select>
+				</div>	
+				<button type="button" class="btn btn-info" (click)="Upload()" >Upload</button>
+				<!-- end excel read ui-->
+			</div>
+		</div>
+	</div>
+	<!-- <div class="col-md-3">
+			<input type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">
 		<button type="button" class="btn btn-info" (click)="Upload()" >Upload</button>
 		<select [(ngModel)]="journyType" required>
           <option  *ngFor="let journey of journeyTypeData" [ngValue]="journey.name">{{journey.name}}</option>
         </select>
         <br>
-        <!-- end excel read ui-->
-	</div>
+        
+	</div> -->
 </div>

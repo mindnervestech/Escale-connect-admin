@@ -13,9 +13,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/iot-dashboard',
   },*/
    {
-    title: 'Create group',
+    title: 'Create room',
     icon: 'nb-home',
     link: '/pages/dashboard',
+  },
+  {
+    title: 'Manage room',
+    icon: 'nb-home',
+    link: '/pages/dataInTable/group',
   },
   {
     title: 'Create ads',
@@ -23,8 +28,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/ads',
   },
   {
-    title: 'FEATURES',
-    group: true,
+    title: 'Manage ads',
+    icon: 'nb-home',
+    link: '/pages/dataInTable/ads-detail',
   },
   /*{
     title: 'Extra Components',
@@ -223,24 +229,24 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },*/
-  {
-    title: 'Table',
-    icon: 'nb-tables',
-    children: [
-      {
-        title: 'Group',
-        link: '/pages/dataInTable/group',
-      },
-      {
-        title: 'User',
-        link: '/pages/dataInTable/user',
-      },
-      {
-        title: 'Ads',
-        link: '/pages/dataInTable/ads-detail',
-      },
-    ],
-  },
+  // {
+  //   title: 'Table',
+  //   icon: 'nb-tables',
+  //   children: [
+  //     {
+  //       title: 'Group',
+  //       link: '/pages/dataInTable/group',
+  //     },
+  //     {
+  //       title: 'User',
+  //       link: '/pages/dataInTable/user',
+  //     },
+  //     {
+  //       title: 'Ads',
+  //       link: '/pages/dataInTable/ads-detail',
+  //     },
+  //   ],
+  // },
   /*{
     title: 'Miscellaneous',
     icon: 'nb-shuffle',

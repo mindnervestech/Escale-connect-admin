@@ -11,7 +11,8 @@ import { Router,ActivatedRoute } from "@angular/router";
 export class groupComponent {
   public groupList = [];
   public emptyTable = false;
-
+  member = 0;
+  chat = 0;
   constructor(private db: AngularFireDatabase,private router: Router) {
    /* var user = JSON.parse(localStorage.getItem("user"));
         if (user == null) {
@@ -24,6 +25,11 @@ export class groupComponent {
     var me = this;
     firebase.database().ref('/Group').on('value',function(group){
       me.groupList = [];
+      var groupKey = [];
+      var groupData = [];
+      var count = -1;
+      var count2 = 0;
+      var count1 = 0;
       var status = "";
       for(var data in group.val()){
          var msg = me.tripeDateValidation(group.val()[data].tripeDate,group.val()[data].startTime,group.val()[data].endTime);
@@ -32,24 +38,58 @@ export class groupComponent {
           }else{
             status = "Active"
           }
-         var value = {
-            endTime : group.val()[data].endTime,
-            groupId:  group.val()[data].groupId,
-            groupName :  group.val()[data].groupName,
-            startTime :  group.val()[data].startTime,
-            trainNumber :  group.val()[data].trainNumber,
-            tripeDate :  group.val()[data].tripeDate,
-            type :  group.val()[data].type,
-            activeStatus : status,
-            key : data,
-         };
-         me.groupList.push(value);
+          groupKey.push(group.val()[data].groupId);
+          groupData.push(group.val()[data]);
+
+          firebase.database().ref('GroupChats/' +  groupKey[count1]).on('value',function(groupChat){
+            if(groupChat.val() != null && groupChat.val() != ''){
+              var mem =  groupChat.val();
+              const values = Object.keys(mem).map(key => mem[key]);
+              me.chat = values.length;
+              console.log("me.chat",me.chat);
+            }else{
+              me.chat = 0;
+            }
+            count++;
+            firebase.database().ref('GroupMember/' + groupKey[count]).on('value',function(groupMem){
+              console.log("",groupMem.val());
+             
+              if(groupMem.val() != null && groupMem.val() != ''){ 
+                var mem =  groupMem.val();
+                const values = Object.keys(mem).map(key => mem[key]);
+                me.member = values.length;
+                console.log("me.member",me.member);
+              }else{
+                me.member = 0;
+              }
+                var value = {
+                  endTime : groupData[count2].endTime,
+                  groupId:  groupData[count2].groupId,
+                  groupName :  groupData[count2].groupName,
+                  startTime :  groupData[count2].startTime,
+                  trainNumber :  groupData[count2].trainNumber,
+                  tripeDate :  groupData[count2].tripeDate,
+                  type :  groupData[count2].type,
+                  member: me.member,
+                  chat: me.chat,
+                  activeStatus : status,
+                  key : groupKey[count2],
+               };
+               me.groupList.push(value);  
+               count2++;
+              
+               console.log("me.groupList",me.groupList);
+               if(me.groupList.length == 0){
+                  me.emptyTable = true;
+                }else{
+                  me.emptyTable = false;
+                }
+            });
+            
+          });  
+          count1++;
       }
-      if(me.groupList.length == 0){
-        me.emptyTable = true;
-      }else{
-        me.emptyTable = false;
-      }
+      
     });
   }
 
@@ -121,5 +161,8 @@ export class groupComponent {
        firebase.database().ref('Group/'+ data.key).remove();
        firebase.database().ref('GroupMember/'+ data.groupId).remove();
        firebase.database().ref('GroupChats/'+ data.groupId).remove();
+    }
+    creatrRooom(){
+      this.router.navigate(["pages/dashboard"]);
     }
 }
