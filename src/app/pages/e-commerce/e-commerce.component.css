@@ -65,9 +65,25 @@
 .room-btn{
     padding: 7px 9px;
     border: 0;
-    background: #fff;
+    background: #3d3780;
     position: fixed;
+    color: #fff;
+    z-index: 999;
 }
 button:focus {
     outline: 0px auto -webkit-focus-ring-color;
+}
+.select-btn{
+    background-color: #fff;
+    width: 100%;
+    margin-top: 30px;
+    border: solid 1px;
+    border-radius: 7px;
+    height: 40px;
+    border-color: #28a745;
+}
+.act{
+    background: #3d3780;
+    color: #fff;
+    border: 0;
 }

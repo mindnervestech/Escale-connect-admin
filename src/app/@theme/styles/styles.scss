@@ -30,5 +30,23 @@
   .custom-control .custom-control-indicator {
     border-radius: 50%; // TODO: quickfix for https://github.com/akveo/nebular/issues/275
   }
+  .layout-container{
+    background: #fff;
+  }
+  .input-field {
+      background: transparent !important;
+      border: 1.6px solid #4b43a7 !important;
+      color: #000 !important;
+      font-size: 1rem;
+      padding: 0.75rem 1.125rem;
+      width: 100%;
+      border-radius: 7px;
+  }
+  .input-field::placeholder,.select::placeholder{
+    color: #000;
+  }
+  .menu-title::after{
+    display: none;
+  }
   @include bootstrap-rtl();
 };

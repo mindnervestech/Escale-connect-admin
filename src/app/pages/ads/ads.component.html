@@ -1,5 +1,5 @@
 <div style="text-align: center;font-weight: 600;">
-	<h1 style="margin-top: 0px;margin-bottom: 0px;">Create Ads</h1>
+	<h1 style="color:#000;margin-top: 0px;margin-bottom: 0px;">Create Ads</h1>
 </div>
 <div class="row">
 	<div class="col-md-3"></div>
@@ -15,7 +15,7 @@
 		</div>
 		<div>
 			<select [(ngModel)]="categoryType" required>
-				<option value="" disabled selected>Select your option</option>
+				<option value="" disabled selected>Select your category</option>
 				<option  *ngFor="let category of categoryTypeData" [ngValue]="category">{{category}}</option>
 			</select>
 		</div>

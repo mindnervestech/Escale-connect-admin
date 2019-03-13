@@ -32,11 +32,16 @@ export class groupComponent {
       var count1 = 0;
       var status = "";
       for(var data in group.val()){
-         var msg = me.tripeDateValidation(group.val()[data].tripeDate,group.val()[data].startTime,group.val()[data].endTime);
-          if(msg.length > 0){
-           status = "Inactive";
+         //var msg = me.tripeDateValidation(group.val()[data].tripeDate,group.val()[data].startTime,group.val()[data].endTime);
+        
+          var currentDate = new Date();
+          var startDate = new Date(group.val()[data].startDateTime);
+          var endDate = new Date(group.val()[data].endDateTIme);
+          console.log("data",group.val());
+          if(startDate.getTime() <= currentDate.getTime() && endDate.getTime() >= currentDate.getTime()){
+           status = "Active";
           }else{
-            status = "Active"
+            status = "Inactive";
           }
           groupKey.push(group.val()[data].groupId);
           groupData.push(group.val()[data]);
@@ -52,7 +57,7 @@ export class groupComponent {
             }
             count++;
             firebase.database().ref('GroupMember/' + groupKey[count]).on('value',function(groupMem){
-              console.log("",groupMem.val());
+              //console.log("",groupMem.val());
              
               if(groupMem.val() != null && groupMem.val() != ''){ 
                 var mem =  groupMem.val();
@@ -68,17 +73,18 @@ export class groupComponent {
                   groupName :  groupData[count2].groupName,
                   startTime :  groupData[count2].startTime,
                   trainNumber :  groupData[count2].trainNumber,
-                  tripeDate :  groupData[count2].tripeDate,
                   type :  groupData[count2].type,
                   member: me.member,
                   chat: me.chat,
                   activeStatus : status,
                   key : groupKey[count2],
+                  arrival: groupData[count2].arrivalCity,
+                  departure: groupData[count2].departureCity,
                };
                me.groupList.push(value);  
                count2++;
               
-               console.log("me.groupList",me.groupList);
+               //console.log("me.groupList",me.groupList);
                if(me.groupList.length == 0){
                   me.emptyTable = true;
                 }else{

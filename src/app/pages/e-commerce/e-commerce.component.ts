@@ -177,10 +177,18 @@ export class ECommerceComponent {
 			this.value1 = true
 			this.value2 = false;
 			this.value = text;
+			var addClass = document.getElementById("b1");
+			var removClass = document.getElementById("b2");
+			addClass.classList.add("act");
+			removClass.classList.remove("act");
 		}else{
 			this.value2 = true;
 			this.value1 = false;
 			this.value = text;
+			var addClass = document.getElementById("b2");
+			var removClass = document.getElementById("b1");
+			addClass.classList.add("act");
+			removClass.classList.remove("act");
 		}
 	}
 	createRoom(){

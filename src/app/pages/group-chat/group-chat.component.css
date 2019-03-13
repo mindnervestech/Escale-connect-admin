@@ -8,26 +8,30 @@
     max-height: 520px;
     padding: 25px 10px 0px;
     border-radius: 10px;
-    border: solid 1px #3d3780;
-    background-color: #3d3780;
-    box-shadow: 5px 5px 5px 0 #a4abb373;
+    border: solid 0px #3d3780;
+    background-color: #ffffff;
+    -webkit-box-shadow: 5px 5px 5px 0 #a4abb373;
+    box-shadow: 0px 0px 0px 0 #a4abb373;
+    overflow: auto;
 }
 .card1{
     height: auto;
-    padding: 25px 10px 20px;
+    padding: 0px 10px 0;
     border-radius: 10px;
-    border: solid 1px #3d3780;
-    background-color: #3d3780;
-    box-shadow: 5px 5px 5px 0 #a4abb373;
+    border: solid 0px #3d3780;
+    background-color: #fff;
+    -webkit-box-shadow: 5px 5px 5px 0 #a4abb373;
+    box-shadow: 0px 0px 0px 0 #a4abb373;
 }
 .login-btn{
-    background-color: #00d977;
+    background-color: #3d3780;
     width: auto;
     border: solid 1px;
     border-radius: 7px;
     height: 35px;
-    border-color: #28a745;
+    border-color: #3d3780;
     padding: 0px 15px;
+    color: #fff;
 }
 .input-field{
 	background-color: #352f7d;
@@ -57,4 +61,10 @@
     margin-top: 0.25rem;
     font-size: 100%;
     color: #dc3545;
+}
+.table th, .table td {
+    padding: 0.75rem;
+    vertical-align: middle;
+    border-top: 1px solid #dee2e6;
+    color: #000;
 }

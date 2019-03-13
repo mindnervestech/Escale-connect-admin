@@ -32,6 +32,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'nb-home',
     link: '/pages/dataInTable/ads-detail',
   },
+  {
+    title: 'Logout',
+    icon: 'nb-home',
+    link: '/Login',
+  },
   /*{
     title: 'Extra Components',
     icon: 'nb-star',

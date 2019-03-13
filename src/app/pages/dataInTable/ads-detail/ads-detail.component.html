@@ -12,7 +12,7 @@
 </div>-->
 <div class="card" style="margin-top: 30px;">
 	<div *ngIf="emptyTable" style="text-align: center;font-size: 20px;margin-bottom: 20px;">
-		In system users not available
+		In system ads not available
 	</div>
 	<table class="table table-fixed" *ngIf="!emptyTable">
 		<thead class="table-width-row">
@@ -24,9 +24,9 @@
 				<th class="table-th" style="width: 20%;">Description</th>
 			</tr>
 		</thead>
-
 		<tbody>
-			 <tr *ngFor="let data of userList">
+			<tr>date : {{adsData[0].description}}</tr>
+			 <tr *ngFor="let data of adsData">
 				<td class="table-th" style="width: 20%;">{{data.date}}</td>
 				<td class="table-th" style="width: 20%;">{{data.title}}</td>
 				<td class="table-th" style="width: 20%;">{{data.image}}</td>
