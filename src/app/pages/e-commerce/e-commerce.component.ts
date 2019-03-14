@@ -39,18 +39,26 @@ export class ECommerceComponent {
             this.router.navigate(["pages/tables/smart-table"]);
         }*/
 	}
-
-	//reading file form local path
-	incomingfile(event) {
-	  this.file= event.target.files[0]; 
-	}
+	
 	uploadBtn(){
 		this.upload = !this.upload;
 	}
-	// reading  data from excel and uploading data in firebase
+	/**
+  	* eading file form local path
+	* @method incomingfile
+	* @public
+  	*/
+	incomingfile(event) {
+	  this.file= event.target.files[0]; 
+	}
+
+	/**
+  	* reading  data from excel and uploading data in firebase
+	* @method Upload
+	* @public
+  	*/
 	Upload() {
 		var me = this;
-		var group_id = me.createGroupId();
 		var date = new Date();
         var dateCreated = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 	    let fileReader = new FileReader();
@@ -74,6 +82,7 @@ export class ECommerceComponent {
 		     	var endDateAndTime = "";
 		     	var calculateActivateStatus;
 		     	var number = "";
+		     	var group_id = me.createGroupId();
 		     	if (me.journyType== 'Train') {
 		     		startTime = me.getStartTime('3:00', groupChatData[i]['Train departure time'] );
 		     		startDateAndTime = me.getStartDateAndTime('3:00', groupChatData[i]['Train departure time']);
@@ -83,11 +92,11 @@ export class ECommerceComponent {
 		     		number = groupChatData[i]['Train number'];
 		     	} else if (me.journyType== 'Flight') {
 		     		startTime = me.getStartTime('4:00', groupChatData[i]['Departure time'] );
-		     		endTime = me.getEndTime(groupChatData[i]['Departure time'], groupChatData[i]['Chat room duration']);
-					startDateAndTime = me.getStartDateAndTime('4:00', groupChatData[i]['Train departure time']);
-					endDateAndTime = me.getEndDateAndTime(groupChatData[i]['Departure time'], groupChatData[i]['Chat room duration']);
+		     		endTime = me.getEndTime(groupChatData[i]['Departure time'], groupChatData[i]['Flight duration']);
+					startDateAndTime = me.getStartDateAndTime('4:00', groupChatData[i]['Departure time']);
+					endDateAndTime = me.getEndDateAndTime(groupChatData[i]['Departure time'], groupChatData[i]['Flight duration']);
 		     		calculateActivateStatus = me.calculateActivateStatus(startDateAndTime,endDateAndTime);
-		     		number = groupChatData[i]['Flight number'];
+		     		number = groupChatData[i]['Flight Number'];
 		     	}
 		     	
 		     	this.db.list('/Group').push({
@@ -103,23 +112,29 @@ export class ECommerceComponent {
 					type : me.journyType,
 					startDateTime: startDateAndTime, 
 					endDateTIme: endDateAndTime, 
-					groupActivated: calculateActivateStatus
+					groupActivated: calculateActivateStatus,
+					arrivalCity: groupChatData[i]['Arrival city'],
+					departureCity: groupChatData[i]['Departure city']
 		        });
 		    }
         }
         fileReader.readAsArrayBuffer(this.file);
 	}
 
-	ngOnInit(){
+	ngOnInit() {
 		this.db.list('users').valueChanges().subscribe(user=>{
 			console.log(user);
 		});
-		setInterval(()=> {
-       		this.checkAndResetGroupDetails();
-       	}, 10 * 60 * 1000); //10 minutes 
 	}
 
-	//calculating chat room start time
+	/**
+  	* calculating chat room start time
+	* @method getStartTime
+	* @public
+	* @param  {Date} chatRoomStartTime
+	* @param  {Date} DepatureTime
+	* @return {startTime} returning group chat start time 
+  	*/
 	getStartTime(chatRoomStartTime, DepatureTime) {
 		var a = DepatureTime.split(":");
 		var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 ; 
@@ -129,11 +144,18 @@ export class ECommerceComponent {
 		var date = new Date(1970,0,1);
 		    date.setSeconds(seconds - seconds2);
 
-		var c = date.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
-		return c;
+		var startTime = date.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+		return startTime;
 	}
 
-	//calculating chat room end time
+	/**
+  	* calculating chat room end time
+	* @method getEndTime
+	* @public
+	* @param  {Date} DepatureTime
+	* @param  {Date} chatRoomDuration
+	* @return {endTime} returning group chat end time 
+  	*/
 	getEndTime(DepatureTime, chatRoomDuration) {
 		var a = DepatureTime.split(":");
 		var seconds = (+a[0]) * 60 * 60 + (+a[1]) * 60 ; 
@@ -143,35 +165,61 @@ export class ECommerceComponent {
 		var date = new Date(1970,0,1);
 		    date.setSeconds(seconds + seconds2);
 
-		var c = date.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
-		return c;
+		var endTime = date.toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1");
+		return endTime;
 	}
 
+	/**
+  	* calculating chat room start time and date
+	* @method getStartDateAndTime
+	* @public
+	* @param  {Date} chatRoomStartTime
+	* @param  {Date} DepatureTime
+	* @return {convertedJourneyStartDateAndTime} returning group chat start time and date
+  	*/
 	getStartDateAndTime(chatRoomStartTime, DepatureTime) {
 		var departureDateAndTIme = new Date(new Date().toDateString() +' '+ DepatureTime);
 		var hoursAndMinutes = chatRoomStartTime.split(":");
 		var _journeyStartDateAndTime = departureDateAndTIme.setTime(departureDateAndTIme.getTime() - hoursAndMinutes[0]*3600000 - hoursAndMinutes[1]*60000);
-		var convertedJourneyStartDateAndTime = new Date(_journeyStartDateAndTime);
-		return convertedJourneyStartDateAndTime + "";
+		var convertedJourneyStartDateAndTime = new Date(_journeyStartDateAndTime).toUTCString();
+		return convertedJourneyStartDateAndTime;
 	}
-	//calculating chat room end time and date
+
+	/**
+  	* calculating chat room end time and date
+	* @method getEndDateAndTime
+	* @public
+	* @param  {Date} DepatureTime
+	* @param  {Date} chatRoomDuration
+	* @return {convertedJourneyEndDateAndTime} returning group chat end time and date
+  	*/
 	getEndDateAndTime(DepatureTime, chatRoomDuration) {
 		var departureDateAndTIme = new Date(new Date().toDateString() +' '+ DepatureTime);
 		var hoursAndMinutes = chatRoomDuration.split(":");
 		var _journeyEndDateAndTime = departureDateAndTIme.setTime(departureDateAndTIme.getTime() + hoursAndMinutes[0]*3600000+ hoursAndMinutes[1]*60000);
-		var convertedJourneyEndDateAndTime = new Date(_journeyEndDateAndTime);
-		return convertedJourneyEndDateAndTime + "";
+		var convertedJourneyEndDateAndTime = new Date(_journeyEndDateAndTime).toUTCString();
+		return convertedJourneyEndDateAndTime;
 	}
 
-	//calculating group chat active status
+	/**
+  	* calculating group chat active status
+	* @method calculateActivateStatus
+	* @public
+	* @param  {Date} startTime
+	* @param  {Date} endTime
+	* @return {group avctivate status} true/false
+  	*/
 	calculateActivateStatus(startTime, endTime) {
 		var currentTime = new Date();
-		if(Date.parse(startTime) <= currentTime.getTime() && Date.parse(endTime) >= currentTime.getTime()) {
+		var startTimeDate = new Date(startTime);
+		var endTimeDate = new Date(endTime);
+		if (startTimeDate.getTime() <= currentTime.getTime() && endTimeDate.getTime() >= currentTime.getTime()) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+
 	option(text){
 		if(text == "Train"){
 			this.value1 = true
@@ -191,6 +239,7 @@ export class ECommerceComponent {
 			removClass.classList.remove("act");
 		}
 	}
+
 	createRoom(){
 		var me = this;
 		var date = new Date();
@@ -243,54 +292,5 @@ export class ECommerceComponent {
 	    }
 	    return randomString;
   	}
-
-  	checkAndResetGroupDetails() {
-  		console.log('checkAndResetGroupDetails is calling in every 10 minitus')
-	  	var me = this;
-	  	var currentTimeAndDate = new Date();
-	  	console.log('currentTimeAndDate', currentTimeAndDate);
-	    firebase.database().ref('/Group').on('value',function(group){
-		    for(var data in group.val()) {
-		    	if (Date.parse(group.val()[data].endDateTIme) <= currentTimeAndDate.getTime()) {
-		    		var startDateAndTime = me.updateStartDate(group.val()[data].startDateTime);
-		    		var endDateAndTime = me.updateEndDate(group.val()[data].endDateTIme);
-		    		firebase.database().ref('Group/'+ data).update({
-		    			"startDateTime": startDateAndTime, 
-						"endDateTIme": endDateAndTime, 
-						"groupActivated": me.calculateActivateStatus(startDateAndTime,endDateAndTime)
-		    		});
-				    firebase.database().ref('GroupMember/'+ group.val()[data].groupId).remove();
-				    firebase.database().ref('GroupChats/'+ group.val()[data].groupId).remove();
-		    	}
-		    	else if(Date.parse(group.val()[data].startDateTime) <= currentTimeAndDate.getTime() && Date.parse(group.val()[data].endDateTIme) >= currentTimeAndDate.getTime()) {
-		    		firebase.database().ref('Group/' + data).update({
-						"groupActivated": true
-		    		});
-		    	}
-		    }
-	    });
-  	}
-
-  	//update start date with 1 day (24 hours)
-  	updateStartDate(_startDate) {
-  		var startDate = new Date(_startDate);
-  		console.log('startDate' ,startDate);
-
-  		var udatedStartDateAndTime = startDate.setTime(startDate.getTime() + 24*3600000);
-		console.log(udatedStartDateAndTime)
-		var convertedUpdatedStartDateAndTime = new Date(udatedStartDateAndTime);
-		console.log('convertedUpdatedEndDateAndTime', convertedUpdatedStartDateAndTime)
-		return convertedUpdatedStartDateAndTime + "";
-  	}
-
-  	//update start date with 1 day (24 hours)
-  	updateEndDate(_endDate) {
-  		var endDate = new Date(_endDate);
-  		console.log('EndDate' ,endDate);
-  		var udatedEndDateAndTime = endDate.setTime(endDate.getTime() + 24*3600000);
-		console.log(udatedEndDateAndTime)
-		var convertedUpdatedEndDateAndTime = new Date(udatedEndDateAndTime);
-		console.log('convertedUpdatedEndDateAndTime', convertedUpdatedEndDateAndTime)
-		return convertedUpdatedEndDateAndTime + "";
-  	}
+  	
 }
