@@ -47,11 +47,10 @@ export class SigninComponent {
             };
             localStorage.setItem("user", JSON.stringify(myDetail));
           }
-          me.router.navigate(["pages/dashboard"]);
-          console.log("login");
+          //console.log("login");
           //window.location.reload();
         });
-  		
+  		 me.router.navigate(["pages/dashboard"]);
 	  	}).catch(function(error) {
 		  console.log(error);
 		  me.validData = true;

@@ -10,6 +10,8 @@ import { UserChatComponent } from './user-chat/user-chat.component';
 import { AdsComponent } from './ads/ads.component';*/
 
 const routes: Routes = [
+
+{ path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },
 {
   path: '',
   component: LoginComponent,

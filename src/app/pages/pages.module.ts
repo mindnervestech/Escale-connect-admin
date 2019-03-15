@@ -9,7 +9,7 @@ import { AdsModule } from './ads/ads.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 //import { TestRoutingModule } from './test/test-routing.module';
-
+import { GroupDetailsModule } from './group-details/group-details.module';
 const PAGES_COMPONENTS = [
   PagesComponent,
 ];
@@ -23,6 +23,7 @@ const PAGES_COMPONENTS = [
     GroupChatModule,
     UserChatModule,
     AdsModule,
+    GroupDetailsModule
     //TablesRoutingModule
     //MiscellaneousModule,
   ],

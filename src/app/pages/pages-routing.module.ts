@@ -7,6 +7,7 @@ import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { GroupChatComponent } from './group-chat/group-chat.component';
 import { UserChatComponent } from './user-chat/user-chat.component';
 import { AdsComponent } from './ads/ads.component';
+import { GroupDetailsComponent } from './group-details/group-details.component';
 //import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 
 const routes: Routes = [
@@ -25,6 +26,10 @@ const routes: Routes = [
   },{
     path: 'ads',
     component: AdsComponent,
+  },
+  {
+    path: 'group-details',
+    component: GroupDetailsComponent,
   },
   /* {
     path: 'iot-dashboard',
@@ -59,11 +64,13 @@ const routes: Routes = [
   }, /*{
     path: 'miscellaneous',
     loadChildren: './miscellaneous/miscellaneous.module#MiscellaneousModule',
-  },*/ {
+  },*/
+   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: '/dashboard',
     pathMatch: 'full',
-  }, /*{
+  }, 
+  /*{
     path: '**',
     component: NotFoundComponent,
   }*/],

@@ -37,7 +37,7 @@ export class groupComponent {
           var currentDate = new Date();
           var startDate = new Date(group.val()[data].startDateTime);
           var endDate = new Date(group.val()[data].endDateTIme);
-          console.log("data",group.val());
+          //console.log("data",group.val());
           if(startDate.getTime() <= currentDate.getTime() && endDate.getTime() >= currentDate.getTime()){
            status = "Active";
           }else{
