@@ -15,6 +15,8 @@ export class GroupChatComponent {
 	public groupAllChatList = [];
 	public groupLatestChatList = [];
 	public emptyTable = false;
+	public list = [];
+	objectKeys = Object.keys;
 
 	constructor(private db: AngularFireDatabase,private router: Router,private route: ActivatedRoute){
 
@@ -23,10 +25,14 @@ export class GroupChatComponent {
 	ngOnInit(){
 		var url = window.location.href;
 		//console.log(url);
-		var data = url.replace("http://localhost:4200/#/pages/groupChat?groupId=","");
+		var groupId = url.replace("https://louchat-583ca.firebaseapp.com/index.html#/pages/groupChat?groupId=","");
 		/*var param = this.route.snapshot.paramMap.get("groupId")
 		console.log(param);*/
-		this.db.list('GroupChats/'+ data).valueChanges().subscribe(user=>{
+		/*this.db.list('GroupChats/'+ data).valueChanges().subscribe(user=>{
+			console.log("user",user);
+			for(var i in user){
+				console.log("user",i,user[i]);
+			}
 			this.groupChatList = [];
 			this.groupAllChatList = [];
 			for(var i=0; i<user.length;i++){
@@ -47,8 +53,38 @@ export class GroupChatComponent {
 		        this.emptyTable = false;
 		      }
 		      this.groupChatList.sort(function(a,b){return b.checkDate - a.checkDate});
-		      this.groupAllChatList = this.groupChatList;
+		      this.groupAllChatList = this.groupChatList;	
+		});*/
+		let me = this;
+		 firebase.database().ref('GroupMember/'+ groupId).on('value',function(user){
+			var data = user.val();
+			console.log("list",data);
+			for(var i in data){
+				firebase.database().ref('users/'+ i).on('value',function(snapshot){
+					if(snapshot.val() != null && snapshot.val() != ''){
+						var value = snapshot.val();
+						var date = new Date(value.created);
+						var all = {
+							key: i,
+							groupId: groupId,
+							date: date,
+							name: value.name,
+							age: value.age == '' ? '-' : value.age,
+							gender: value.gender == '' ? '-' : value.gender,
+							status: value.status == '' ? '-' : value.status,
+							profilePic: value.profilePic == '' ? './assets/images/profile.png' : value.profilePic,
+						}
+						me.list.push(all);
+						console.log("me.userList",me.list);		
+					}
+				});
+			}
 		});
+	}
+	userMessage(groupId,id){
+		console.log("id",id);
+		console.log("groupId",groupId);
+		this.router.navigate(["pages/userChat"],{queryParams:{groupId : groupId, userId : id}});
 	}
 	getGroupChat(){
 		this.groupChatList = this.groupAllChatList;

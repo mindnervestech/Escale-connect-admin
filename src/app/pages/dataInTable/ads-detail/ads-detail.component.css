@@ -26,3 +26,26 @@ h1{
     text-align: center;
     color: #000;
 }
+a{
+    color: #0000FF !important;
+}
+a:hover{
+    color: #0000FF !important;
+    text-decoration: underline;;
+}
+.button{
+    margin-bottom: 26px;
+    width: 100%;
+    cursor: pointer;
+}
+.button button{
+    display: inline-block;
+    width: 10%;
+    float: left;
+    margin-left: 10px;
+    padding: 10px 0;
+    background: #3d3780;
+    border: 0px;
+    color: #fff;
+    text-transform: capitalize;
+}

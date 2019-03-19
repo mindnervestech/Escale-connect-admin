@@ -58,7 +58,6 @@ export class groupComponent {
             count++;
             firebase.database().ref('GroupMember/' + groupKey[count]).on('value',function(groupMem){
               //console.log("",groupMem.val());
-             
               if(groupMem.val() != null && groupMem.val() != ''){ 
                 var mem =  groupMem.val();
                 const values = Object.keys(mem).map(key => mem[key]);

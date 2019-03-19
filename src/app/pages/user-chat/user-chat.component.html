@@ -1,5 +1,5 @@
 <div class="card1">
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-md-2">
 			<button class="login-btn" (click)="goToBack()">Return</button>
 		</div>
@@ -10,13 +10,14 @@
 		<div class="col-md-2">
 			<button class="login-btn" (click)="getLatestChat()">Latest Messages</button>
 		</div>
-	</div>
+	</div> -->
 	<div class="row">
-		<div class="col-md-2"></div>
-		<div class="col-md-8" style="text-align: center;font-weight: 600;">
-			<h1 style="margin-top: 0px;margin-bottom: 0px;">User Chat Data</h1>
+		<div class="col-md-1">
+			<button class="login-btn" (click)="goToBack()">Return</button>
 		</div>
-		<div class="col-md-2"></div>
+		<div class="col-md-11" style="text-align: center;font-weight: 600;">
+			<h1 style="margin-top: 0px;margin-bottom: 0px;color: #000;">User Chat Data</h1>
+		</div>
 	</div>
 </div>
 <div class="card" style="margin-top: 30px;">
@@ -33,15 +34,15 @@
 		</thead>
 
 		<tbody>
-			<tr *ngFor="let data of userChatList">
-				<td class="table-th" style="width: 25%;">{{data.DateCreated}}</td>
+			<tr *ngFor="let data of allMessage" style="border-bottom: 1px solid #dee2e6;">
+				<td class="table-th" style="width: 25%;">{{data.date}}</td>
 				<td class="table-th" style="width: 25%;">
 					<div class="row">
-						<div class="col-md-3">
-							<img src="{{data.profilePic}}" style="width: 35px;height: 35px;border-radius: 50%;border:solid 2px #fff;">
+						<div class="col-md-2">
+							<img src="{{data.profilePic}}" style="width: 35px;height: 35px;border-radius: 50%;border:solid 1px #dee2e6;">
 						</div>
-						<div class="col-md-9">
-							{{data.name}}
+						<div class="col-md-10 name-data">
+							<span>{{data.name}}</span>
 						</div>
 					</div>
 				</td>

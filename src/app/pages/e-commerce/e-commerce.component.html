@@ -32,6 +32,20 @@
 				Please select one option!
 			</div>
 		</div>
+		<div class="row" style="margin-top: 30px;">
+			<div class="col-md-6">
+				<div>
+					<label class="label" for="input-email">Depature city:</label>
+				</div>
+				<input type="text" name="date" class="input-field" placeholder="Depature" [(ngModel)]="departure">
+			</div>
+			<div class="col-md-6">
+				<div>
+					<label class="label" for="input-email">Arrival city:</label>
+				</div>
+				<input type="text" name="date" class="input-field" placeholder="Arrival" [(ngModel)]="arrival">
+			</div>
+		</div>
 		<div style="margin-top: 30px;">
 			<label class="label" for="input-email">Trip number:</label>
 		</div>
@@ -65,7 +79,7 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<div><label class="label" for="input-email">Trip end time:</label></div>
+				<div><label class="label" for="input-email">Trip duration:</label></div>
 				<div class="row">
 					<div class="col-md-5">
 						<input type="text" name="date" class="input-field" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Hours" [(ngModel)]="endTimehr">
@@ -81,6 +95,9 @@
 		</div>
 		<div *ngIf="allField" class="invalid-feedback">
 			Please fill all field!
+		</div>
+		<div *ngIf="showErrorMsg" class="invalid-feedback">
+			Trip no already exits in system.
 		</div>
 		<div>
 			<button class="login-btn" (click)="createRoom()">
@@ -106,6 +123,7 @@
 				</div>	
 				<button type="button" class="btn btn-info" (click)="Upload()" >Upload</button>
 				<!-- end excel read ui-->
+				<p style="color:green;" *ngIf="success">File uploaded successfuly</p>
 			</div>
 		</div>
 	</div>

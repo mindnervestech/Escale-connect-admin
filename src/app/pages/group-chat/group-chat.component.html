@@ -4,7 +4,7 @@
 			<button class="login-btn" (click)="goToBack()">Return</button>
 		</div>
 		<div class="col-md-7">
-			<h1 style="margin-top: 0px;margin-bottom: 0px;color: #000;text-align: center;">Group Chat Data</h1>
+			<h1 style="margin-top: 0px;margin-bottom: 0px;color: #000;text-align: center;">Group Member Data</h1>
 		</div>
 		<!-- <div class="col-md-2">
 			<button class="login-btn" (click)="getGroupChat()"style="float: right;">All Messages</button>
@@ -28,28 +28,31 @@
 	<table class="table table-fixed" style="margin-bottom: 0px;" *ngIf="!emptyTable">
 		<thead>
 			<tr>
-				<th class="table-th" style="width: 25%;">Date</th>
-				<th class="table-th" style="width: 25%;">Name</th>
-				<th class="table-th" style="width: 50%;">Message</th>
+				<th class="table-th" style="width: 20%;">Date</th>
+				<th class="table-th" style="width: 20%;">Name</th>
+				<th class="table-th" style="width: 20%;">Age</th>
+				<th class="table-th" style="width: 20%;">Gender</th>
+				<th class="table-th" style="width: 20%;">Status</th>
 			</tr>
 		</thead>
-
 		<tbody>
-			<tr *ngFor="let data of groupChatList">
-				<td class="table-th" style="width: 25%;">{{data.DateCreated}}</td>
-				<td class="table-th" style="width: 25%;">
-						<span><img src="{{data.profilePic}}" style="width: 35px;height: 35px;border-radius: 50%;border:solid 2px #000;margin-right: 10px;"></span>
-						<span>{{data.name}}</span>
-					<!-- <div class="row">
+			<tr *ngFor="let data of list" style="cursor:pointer;border-bottom: 1px solid #dee2e6;" (click)="userMessage(data.groupId,data.key)">
+				<td class="table-th" style="width: 20%;">{{data.date | date: 'dd/MM/yy h:mm:ss'}}</td>
+				<td class="table-th" style="width: 20%;">
+						<!-- <span><img src="{{data.profilePic}}" style="width: 35px;height: 35px;border-radius: 50%;border:solid 2px #000;margin-right: 10px;"></span>
+						<span><img src="data.profilePic">{{data.name}}</span> -->
+					<div class="row">
 						<div class="col-md-3">
-							<img src="{{data.profilePic}}" style="width: 35px;height: 35px;border-radius: 50%;border:solid 2px #fff;">
+							<img src="{{data.profilePic}}" style="width: 35px;height: 35px;border-radius: 50%;border:solid 1.7px #a4abb3;">
 						</div>
-						<div class="col-md-9">
-							{{data.name}}
+						<div class="col-md-9 name-align">
+							<span>{{data.name}}</span>
 						</div>
-					</div> -->
+					</div>
 				</td>
-				<td class="table-th" style="width: 50%;">{{data.message}}</td>
+				<td class="table-th" style="width: 20%;">{{data.age}}</td>
+				<td class="table-th" style="width: 20%;">{{data.gender}}</td>
+				<td class="table-th" style="width: 20%;">{{data.status}}</td>
 			</tr>
 		</tbody>
 	</table>

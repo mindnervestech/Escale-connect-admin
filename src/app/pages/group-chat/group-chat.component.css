@@ -46,6 +46,14 @@
     font-weight: 600;
     cursor: pointer;
 }
+.name-align{
+    display: table;
+    height: 40px;
+}
+.name-align span{
+    display: table-cell;
+    vertical-align: middle;
+}
 .active{
     background-color: #fff;
     width: 100%;

@@ -31,6 +31,10 @@ export class ECommerceComponent {
 	private journeyTypeData = [{id: 1, name: 'Train'},{id: 2, name:'Flight'}]
 	arrayBuffer:any;
 	file:File;
+	success: boolean = false;
+	private departure = "";
+	private arrival = "";
+	showErrorMsg: boolean = false;
 	constructor(private db: AngularFireDatabase,private router: Router){
 		/*var user = JSON.parse(localStorage.getItem("user"));
 		console.log("user",user);
@@ -40,6 +44,12 @@ export class ECommerceComponent {
         }*/
 	}
 	
+	ngOnInit() {
+		this.db.list('users').valueChanges().subscribe(user=>{
+			console.log(user);
+		});
+	}
+
 	uploadBtn(){
 		this.upload = !this.upload;
 	}
@@ -118,13 +128,89 @@ export class ECommerceComponent {
 		        });
 		    }
         }
+        me.success = true;
+        me.journyType = '';
         fileReader.readAsArrayBuffer(this.file);
 	}
 
-	ngOnInit() {
-		this.db.list('users').valueChanges().subscribe(user=>{
-			console.log(user);
-		});
+	createRoom(){
+		var me = this;
+		var date = new Date();
+        var dateCreated = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+		var group_id = me.createGroupId();
+		if(me.roomName != "" && me.tripeNumber != "" && me.year != "" && me.month != "" && me.day != "" && me.startTimehr != "" && me.startTimemin != "" && me.endTimehr != "" && me.endTimemin != ""){
+			me.allField = false;
+		}else{
+			me.allField = true;
+		}
+		if(me.value == ""){
+			me.optionSelect = true;
+		}else{
+			me.optionSelect = false;
+		}
+		if(me.allField == false && me.optionSelect == false){
+			var startTime = "";
+	     	var endTime = "";
+	     	var startDateAndTime = "";
+	     	var endDateAndTime = "";
+	     	var calculateActivateStatus;
+	     	var number = "";
+			if (me.value== 'Train') {
+		     		startTime = me.getStartTime('3:00', me.startTimehr +":"+me.startTimemin );
+		     		startDateAndTime = me.getStartDateAndTime('3:00', me.startTimehr +":"+me.startTimemin);
+					endDateAndTime = me.getEndDateAndTime(me.startTimehr +":"+me.startTimemin, me.endTimehr +":"+me.endTimemin);
+		     		endTime = me.getEndTime(me.startTimehr +":"+me.startTimemin,me.endTimehr +":"+me.endTimemin);
+		     		calculateActivateStatus = me.calculateActivateStatus(startDateAndTime, endDateAndTime);
+		     		
+		     	} else if (me.value== 'Flight') {
+		     		startTime = me.getStartTime('4:00', me.startTimehr +":"+me.startTimemin );
+		     		endTime = me.getEndTime(me.startTimehr +":"+me.startTimemin,me.endTimehr +":"+me.endTimemin);
+					startDateAndTime = me.getStartDateAndTime('4:00', me.startTimehr +":"+me.startTimemin);
+					endDateAndTime = me.getEndDateAndTime(me.startTimehr +":"+me.startTimemin, me.endTimehr +":"+me.endTimemin);
+		     		calculateActivateStatus = me.calculateActivateStatus(startDateAndTime,endDateAndTime);
+		     		
+		    }
+		    firebase.database().ref().child('Group/').orderByChild("trainNumber").equalTo(me.tripeNumber).on('value',function(result){
+		    	console.log("----",result.val());
+		    	if(result.val() == null){
+		    		me.db.list('/Group').push({
+			            DateCreated :dateCreated,
+						endTime : endTime,
+						groupId: group_id,
+						groupName : me.roomName,
+						lastMessage : "",
+						startTime : startTime,
+						trainNumber : me.tripeNumber,
+						tripeDate : me.year+"-"+me.month+"-"+me.day,
+						unreadCount: 0,
+						type : me.value,
+						startDateTime: startDateAndTime, 
+						endDateTIme: endDateAndTime, 
+						groupActivated: calculateActivateStatus,
+						arrivalCity: me.arrival,
+						departureCity: me.departure,
+		          });
+		    		console.log("yyyyyyyyyyyy");
+		    	}
+		    	else{
+		    		me.showErrorMsg = true;
+		    		console.log("iiiiiiii");
+		    	}
+		    });	
+
+			me.roomName = "";
+			me.tripeNumber = "";
+			me.year = "";
+			me.month = "";
+			me.day = "";
+			me.startTimehr = "";
+			me.startTimemin = "";
+			me.endTimehr = "";
+			me.endTimemin = "";
+			me.value = "";
+			me.arrival = "";
+			me.departure = "";
+		}
 	}
 
 	/**
@@ -240,47 +326,7 @@ export class ECommerceComponent {
 		}
 	}
 
-	createRoom(){
-		var me = this;
-		var date = new Date();
-        var dateCreated = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-		var group_id = me.createGroupId();
-		if(me.roomName != "" && me.tripeNumber != "" && me.year != "" && me.month != "" && me.day != "" && me.startTimehr != "" && me.startTimemin != "" && me.endTimehr != "" && me.endTimemin != ""){
-			me.allField = false;
-		}else{
-			me.allField = true;
-		}
-		if(me.value == ""){
-			me.optionSelect = true;
-		}else{
-			me.optionSelect = false;
-		}
-		if(me.allField == false && me.optionSelect == false){
-			this.db.list('/Group').push({
-            DateCreated :dateCreated,
-			endTime : me.endTimehr +":"+me.endTimemin,
-			groupId: group_id,
-			groupName : me.roomName,
-			lastMessage : "",
-			startTime : me.startTimehr +":"+me.startTimemin,
-			trainNumber : me.tripeNumber,
-			tripeDate : me.year+"-"+me.month+"-"+me.day,
-			unreadCount: 0,
-			type : me.value,
-          });
-
-			me.roomName = "";
-			me.tripeNumber = "";
-			me.year = "";
-			me.month = "";
-			me.day = "";
-			me.startTimehr = "";
-			me.startTimemin = "";
-			me.endTimehr = "";
-			me.endTimemin = "";
-			me.value = "";
-		}
-	}
+	
 
 	createGroupId(){
 	    var stringLength = 12;

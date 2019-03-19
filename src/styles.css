@@ -1,3 +1,6 @@
 .menu-title::after{
     display: none;
 }
+button{
+	cursor: pointer;
+}
