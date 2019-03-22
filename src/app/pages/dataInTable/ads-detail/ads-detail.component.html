@@ -1,3 +1,4 @@
+<div class="loader" *ngIf="loader"></div>
 <div class="card1">
 	<h1>Manage Ads</h1>
 </div>
@@ -15,10 +16,10 @@
 		In system ads not available
 	</div>
 	<div class="button">
-		<button type="text" (click)="loadAds('business')">Business</button>
-		<button type="text" (click)="loadAds('homework')">homework</button>
-		<button type="text" (click)="loadAds('tourism')">tourism</button>
-		<button type="text" (click)="loadAds('visit')">visit</button>
+		<button type="text" (click)="loadAds('business')" [ngClass]="{'active': active == 'business'}">Business</button>
+		<button type="text" (click)="loadAds('homework')" [ngClass]="{'active': active == 'homework'}">homework</button>
+		<button type="text" (click)="loadAds('tourism')" [ngClass]="{'active': active == 'tourism'}">tourism</button>
+		<button type="text" (click)="loadAds('visit')" [ngClass]="{'active': active == 'visit'}">visit</button>
 	</div>
 	<table class="table table-fixed" *ngIf="!emptyTable">
 		<thead class="table-width-row">

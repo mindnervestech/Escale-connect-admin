@@ -1,5 +1,39 @@
+.loader {
+  border: 5px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 5px solid #3d3780;
+    width: 40px;
+    height: 40px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.active {
+    background: #00d977 !important;
+    color: #000;
+    border: 0px solid !important;
+}
+button:focus {
+    outline: 0px dotted;
+    outline: 0px auto -webkit-focus-ring-color !important;
+}
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 .table-th{
-    text-align: center;
+    text-align: justify;
     color: #000;
 }
 .card{

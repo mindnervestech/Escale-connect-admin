@@ -13,7 +13,7 @@
 	<h1 id="title" class="title">Upload Room</h1>
 </div> -->
 <div class="row" style="margin-top:30px;">
-	<div class="col-md-3"></div>
+	<div class="col-md-3" *ngIf="upload"></div>
 	<div class="col-md-6" *ngIf="upload">
 		<div>
 			<label class="label" for="input-email">Room name:</label>
@@ -53,7 +53,7 @@
 			<input type="text" name="number" placeholder="Trip number" class="input-field" [(ngModel)]="tripeNumber">
 		</div>
 		<div style="margin-top: 30px;">
-			<label class="label" for="input-email">Trip Date:</label>
+			<label class="label" for="input-email">Date of journey:</label>
 		</div>
 		<div class="row">
 			<div class="col-md-4">
@@ -68,7 +68,7 @@
 		</div>
 		<div class="row" style="margin-top: 30px;">
 			<div class="col-md-6">
-				<div><label class="label" for="input-email">Trip start time:</label></div>
+				<div><label class="label" for="input-email">Journey start time:</label></div>
 				<div class="row">
 					<div class="col-md-5">
 						<input type="text" name="date" class="input-field" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Hours" [(ngModel)]="startTimehr">
@@ -79,7 +79,7 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<div><label class="label" for="input-email">Trip duration:</label></div>
+				<div><label class="label" for="input-email">Journey duration:</label></div>
 				<div class="row">
 					<div class="col-md-5">
 						<input type="text" name="date" class="input-field" maxlength="2" onkeypress="return event.charCode >= 48 && event.charCode <= 57" placeholder="Hours" [(ngModel)]="endTimehr">
@@ -105,13 +105,12 @@
 			  </button>
 		</div>
 	</div>
+	<div class="col-md-4" *ngIf="!upload">
+	</div>	
 	<div class="col-md-6" *ngIf="!upload">
 		<div class="row upload-file" style="margin-top: 25px;">
 			<div class="col-md-12">
 				<!-- started  excel read ui-->
-				<div style="display: inline-block;width: 41%;margin-left: 51px;">
-					<input type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">
-				</div>
 				<div style="display: inline-block;width: 37%;">
 					<span>
 						<label class="label">Select Train/Flight</label>
@@ -121,6 +120,9 @@
 						<option  *ngFor="let journey of journeyTypeData" [ngValue]="journey.name">{{journey.name}}</option>
 					</select>
 				</div>	
+				<div style="display: inline-block;width: 41%;margin-left: 10px;">
+					<input type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx">
+				</div>
 				<button type="button" class="btn btn-info" (click)="Upload()" >Upload</button>
 				<!-- end excel read ui-->
 				<p style="color:green;" *ngIf="success">File uploaded successfuly</p>

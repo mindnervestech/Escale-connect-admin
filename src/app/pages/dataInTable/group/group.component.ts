@@ -13,6 +13,8 @@ export class groupComponent {
   public emptyTable = false;
   member = 0;
   chat = 0;
+  active: string = '';
+  public loader: boolean = false;
   constructor(private db: AngularFireDatabase,private router: Router) {
    /* var user = JSON.parse(localStorage.getItem("user"));
         if (user == null) {
@@ -23,10 +25,12 @@ export class groupComponent {
   ngOnInit(){
     //var group : any;
     var me = this;
+    me.loader = true;
     firebase.database().ref('/Group').on('value',function(group){
       me.groupList = [];
       var groupKey = [];
       var groupData = [];
+      var key = [];
       var count = -1;
       var count2 = 0;
       var count1 = 0;
@@ -37,7 +41,6 @@ export class groupComponent {
           var currentDate = new Date();
           var startDate = new Date(group.val()[data].startDateTime);
           var endDate = new Date(group.val()[data].endDateTIme);
-          //console.log("data",group.val());
           if(startDate.getTime() <= currentDate.getTime() && endDate.getTime() >= currentDate.getTime()){
            status = "Active";
           }else{
@@ -45,24 +48,22 @@ export class groupComponent {
           }
           groupKey.push(group.val()[data].groupId);
           groupData.push(group.val()[data]);
+          key.push(data);
 
           firebase.database().ref('GroupChats/' +  groupKey[count1]).on('value',function(groupChat){
             if(groupChat.val() != null && groupChat.val() != ''){
               var mem =  groupChat.val();
               const values = Object.keys(mem).map(key => mem[key]);
               me.chat = values.length;
-              console.log("me.chat",me.chat);
             }else{
               me.chat = 0;
             }
             count++;
             firebase.database().ref('GroupMember/' + groupKey[count]).on('value',function(groupMem){
-              //console.log("",groupMem.val());
               if(groupMem.val() != null && groupMem.val() != ''){ 
                 var mem =  groupMem.val();
                 const values = Object.keys(mem).map(key => mem[key]);
                 me.member = values.length;
-                console.log("me.member",me.member);
               }else{
                 me.member = 0;
               }
@@ -76,18 +77,18 @@ export class groupComponent {
                   member: me.member,
                   chat: me.chat,
                   activeStatus : status,
-                  key : groupKey[count2],
+                  key : key[count2],
                   arrival: groupData[count2].arrivalCity,
                   departure: groupData[count2].departureCity,
                };
                me.groupList.push(value);  
                count2++;
               
-               //console.log("me.groupList",me.groupList);
                if(me.groupList.length == 0){
                   me.emptyTable = true;
                 }else{
                   me.emptyTable = false;
+                  me.loader = false;
                 }
             });
             

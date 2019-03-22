@@ -32,9 +32,10 @@ export class ECommerceComponent {
 	arrayBuffer:any;
 	file:File;
 	success: boolean = false;
-	private departure = "";
-	private arrival = "";
+	private departure:string = "";
+	private arrival: string = "";
 	showErrorMsg: boolean = false;
+	uploadOnces: boolean = false;
 	constructor(private db: AngularFireDatabase,private router: Router){
 		/*var user = JSON.parse(localStorage.getItem("user"));
 		console.log("user",user);
@@ -138,7 +139,7 @@ export class ECommerceComponent {
 		var date = new Date();
         var dateCreated = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 		var group_id = me.createGroupId();
-		if(me.roomName != "" && me.tripeNumber != "" && me.year != "" && me.month != "" && me.day != "" && me.startTimehr != "" && me.startTimemin != "" && me.endTimehr != "" && me.endTimemin != ""){
+		if(me.roomName != "" && me.tripeNumber != "" && me.year != "" && me.month != "" && me.day != "" && me.startTimehr != "" && me.startTimemin != "" && me.endTimehr != "" && me.endTimemin != "" && me.arrival != "" && me.departure != ""){
 			me.allField = false;
 		}else{
 			me.allField = true;
@@ -170,47 +171,54 @@ export class ECommerceComponent {
 		     		calculateActivateStatus = me.calculateActivateStatus(startDateAndTime,endDateAndTime);
 		     		
 		    }
+		    me.uploadOnces = true;
 		    firebase.database().ref().child('Group/').orderByChild("trainNumber").equalTo(me.tripeNumber).on('value',function(result){
-		    	console.log("----",result.val());
-		    	if(result.val() == null){
-		    		me.db.list('/Group').push({
-			            DateCreated :dateCreated,
-						endTime : endTime,
-						groupId: group_id,
-						groupName : me.roomName,
-						lastMessage : "",
-						startTime : startTime,
-						trainNumber : me.tripeNumber,
-						tripeDate : me.year+"-"+me.month+"-"+me.day,
-						unreadCount: 0,
-						type : me.value,
-						startDateTime: startDateAndTime, 
-						endDateTIme: endDateAndTime, 
-						groupActivated: calculateActivateStatus,
-						arrivalCity: me.arrival,
-						departureCity: me.departure,
-		          });
-		    		console.log("yyyyyyyyyyyy");
-		    	}
-		    	else{
-		    		me.showErrorMsg = true;
-		    		console.log("iiiiiiii");
-		    	}
-		    });	
-
-			me.roomName = "";
-			me.tripeNumber = "";
-			me.year = "";
-			me.month = "";
-			me.day = "";
-			me.startTimehr = "";
-			me.startTimemin = "";
-			me.endTimehr = "";
-			me.endTimemin = "";
-			me.value = "";
-			me.arrival = "";
-			me.departure = "";
+		    	if(me.uploadOnces == true){
+			    	if(result.val() == null){
+			    		me.db.list('/Group').push({
+				            DateCreated :dateCreated,
+							endTime : endTime,
+							groupId: group_id,
+							groupName : me.roomName,
+							lastMessage : "",
+							startTime : startTime,
+							trainNumber : me.tripeNumber,
+							tripeDate : me.year+"-"+me.month+"-"+me.day,
+							unreadCount: 0,
+							type : me.value,
+							startDateTime: startDateAndTime, 
+							endDateTIme: endDateAndTime, 
+							groupActivated: calculateActivateStatus,
+							arrivalCity: me.arrival,
+							departureCity: me.departure,
+			          	});
+			    		me.clearField();
+			    		me.uploadOnces = false;
+			    		me.showErrorMsg = false;
+			    	}
+			    	else{
+			    		me.showErrorMsg = true;
+			    	}
+			    }	
+		    });
 		}
+	}
+
+	clearField(){
+		var me = this;
+    	me.roomName = "";
+		me.tripeNumber = "";
+		me.year = "";
+		me.month = "";
+		me.day = "";
+		me.startTimehr = "";
+		me.startTimemin = "";
+		me.endTimehr = "";
+		me.endTimemin = "";
+		me.value = "";
+		me.arrival = "";
+		me.departure = ""; 
+		me.option('');   
 	}
 
 	/**

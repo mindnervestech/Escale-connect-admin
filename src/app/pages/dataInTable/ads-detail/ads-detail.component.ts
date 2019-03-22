@@ -16,6 +16,8 @@ export class AdsDetailComponent {
   public adsData = [];
   public ads: boolean = false;
   public base64Image: any;
+  public loader: boolean = false;
+  active: string = '';
   constructor(private db: AngularFireDatabase,private router: Router,private _sanitizer: DomSanitizer) {
     /*var user = JSON.parse(localStorage.getItem("user"));
         if (user == null) {
@@ -29,7 +31,9 @@ export class AdsDetailComponent {
 
   loadAds(data){
     var me = this;
+    me.loader = true;
     console.log("data---",data);
+    me.active = data;
     me.ads = false;
     me.adsData = [];
     firebase.database().ref('Ads/' + data).on('value',function(group){
@@ -52,6 +56,7 @@ export class AdsDetailComponent {
           me.emptyTable = true;
         }else{
           me.emptyTable = false;
+          me.loader = false;
         }
         me.ads = true;
       }  

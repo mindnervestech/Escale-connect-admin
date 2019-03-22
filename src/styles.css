@@ -4,3 +4,6 @@
 button{
 	cursor: pointer;
 }
+.content{
+	position: relative;
+}

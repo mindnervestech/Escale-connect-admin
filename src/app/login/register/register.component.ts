@@ -22,7 +22,7 @@ export class RegisterComponent {
 	private validEmail = false;
 	private passwordMatch = false;
 	private emailUsed = false;
-
+	private success: boolean = false;
 	constructor(private db: AngularFireDatabase,private router: Router,private route: ActivatedRoute){
 
 	}
@@ -66,6 +66,7 @@ export class RegisterComponent {
     	firebase.auth().createUserWithEmailAndPassword(me.email,me.password).then(function (user) {
 			console.log(user);
 			me.db.list('/adminUser').push(data);
+			me.success = true;
 			me.router.navigate(["login/signin"]);
 		}).catch(function(error) {
 		  console.log(error);
