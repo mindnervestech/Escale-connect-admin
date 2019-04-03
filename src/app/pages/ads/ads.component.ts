@@ -32,6 +32,7 @@ export class AdsComponent {
 	groupId: any = '';
 	inputChanged: any = '';
 	items2: any[] = [];
+	key: string = '';
 	config2: any = {'class': 'test', 'max': 2, 'placeholder': 'test', 'sourceField': ['payload','label']};
 	showEditBtn: boolean = false;
 	constructor(private afStorage: AngularFireStorage, private db: AngularFireDatabase, private router: Router,private route: ActivatedRoute){

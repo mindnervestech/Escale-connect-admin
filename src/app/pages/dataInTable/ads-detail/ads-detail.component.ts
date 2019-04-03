@@ -21,7 +21,7 @@ export class AdsDetailComponent {
   public loader: boolean = false;
   active: string = '';
   public manageAds: any=[];
-  public groupid: string = '';
+  public groupid: any = [];
   public groupkey: string = '';
   constructor(private ngxService: NgxUiLoaderService,private db: AngularFireDatabase,private router: Router,private _sanitizer: DomSanitizer) {
     /*var user = JSON.parse(localStorage.getItem("user"));
