@@ -10,6 +10,10 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
 //import { TestRoutingModule } from './test/test-routing.module';
 import { GroupDetailsModule } from './group-details/group-details.module';
+import { NgxUiLoaderModule } from  'ngx-ui-loader';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+
 const PAGES_COMPONENTS = [
   PagesComponent,
 ];
@@ -23,12 +27,15 @@ const PAGES_COMPONENTS = [
     GroupChatModule,
     UserChatModule,
     AdsModule,
-    GroupDetailsModule
+    GroupDetailsModule,
+    NgxUiLoaderModule,
+    NgxSpinnerModule,
+    AngularFireStorageModule,
     //TablesRoutingModule
     //MiscellaneousModule,
   ],
   declarations: [
-    ...PAGES_COMPONENTS,
+    ...PAGES_COMPONENTS
   ],
 })
 export class PagesModule {

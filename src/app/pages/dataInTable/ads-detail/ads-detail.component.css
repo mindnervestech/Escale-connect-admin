@@ -13,6 +13,13 @@
     bottom: 0;
     margin: auto;
 }
+.btn-css{
+    border: 0px;
+    background: #3d3780;
+    color: #fff;
+    padding: 7px 12px;
+    margin-right: 6px;
+}
 .active {
     background: #00d977 !important;
     color: #000;

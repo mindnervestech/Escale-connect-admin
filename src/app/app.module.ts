@@ -18,6 +18,9 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import {NgAutoCompleteModule} from "ng-auto-complete";
+import { AutocompleteModule } from 'ng2-input-autocomplete';
+//import { GroupDetailsComponent } from './group-details/group-details.component';
 /*import { AngularFireModule } from '@angular/fire';
 
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -36,10 +39,12 @@ import { AngularFireAuthModule } from '@angular/fire/auth';*/
     CoreModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    NgAutoCompleteModule,
+    AutocompleteModule.forRoot()
     /*AngularFirestoreModule,
     AngularFireAuthModule, 
-    AngularFireStorageModule,*/
+    AngularFireStorageModule*/
     
   ],
   bootstrap: [AppComponent],

@@ -4,38 +4,73 @@
 <div class="row">
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
-		<div style="margin-top: 30px;">
-			<label class="label" for="input-email">Ads title:</label>
+		<div style="margin-top: 15px;">
+			<label class="label" for="input-email">Ads title <span style="color:red;">*</span></label>
 		</div>
 		<div>
 			<input type="text" name="adsName" placeholder="Ads name" class="input-field" [(ngModel)]="adsName">
 		</div>
-		<div style="margin-top: 30px;">
-			<label class="label" for="input-email">Ads category:</label>
-		</div>
 		<div>
-			<select [(ngModel)]="categoryType" required>
-				<option value="" disabled selected>Select your category</option>
-				<option  *ngFor="let category of categoryTypeData" [ngValue]="category">{{category}}</option>
-			</select>
+			<div class="div-divide">
+				<div style="margin-top: 15px;">
+					<label class="label" for="input-email">Ads category <span style="color:red;">*</span></label>
+				</div>
+				<div *ngIf="!showEditBtn">
+					<select [(ngModel)]="categoryType" required>
+						<option value="" disabled selected>Select your category</option>
+						<option  *ngFor="let category of categoryTypeData" [ngValue]="category">{{category}}</option>
+					</select>
+				</div>
+				<div *ngIf="showEditBtn">
+					<select [(ngModel)]="categoryType" required disabled>
+						<option value="" disabled selected>Select your category</option>
+						<option  *ngFor="let category of categoryTypeData" [ngValue]="category">{{category}}</option>
+					</select>
+				</div>
+			</div>	
+			<div class="div-divide">
+				<div style="margin-top: 15px;">
+					<label class="label" for="input-email">Status <span style="color:red;">*</span></label>
+				</div>
+				<div>
+					<select [(ngModel)]="status" required>
+						<option value="" disabled selected>Select your status</option>
+						<option  *ngFor="let status of statusType" [ngValue]="status">{{status}}</option>
+					</select>
+				</div>
+			</div>	
+		</div>	
+		<div style="margin-top: 15px;">
+			<label class="label" for="input-email">Select room <span style="color:red;">*</span></label>
 		</div>
-		<div style="margin-top: 30px;">
+		<div *ngIf="!showEditBtn">
+			<input class="in" [(ngModel)]="selectedItem" placeholder="Select room" autocomplete [config]="config2" [items]="items2"
+	      	(inputChangedEvent)="onInputChangedEvent($event)"
+	      	(selectEvent)="onSelect($event)">
+		</div>
+		<div *ngIf="showEditBtn">
+			<input class="in" [(ngModel)]="selectedItem" placeholder="Select room" autocomplete [config]="config2" [items]="items2"
+	      	(inputChangedEvent)="onInputChangedEvent($event)"
+	      	(selectEvent)="onSelect($event)" disabled>
+		</div>
+		<div style="margin-top: 15px;">
 			<label class="label" for="input-email">Ads link:</label>
 		</div>
 		<div>
 			<input type="text" name="adsName" placeholder="Ads link" [(ngModel)]="adslink" class="input-field">
 		</div>
-		<div style="margin-top: 30px;font-size: 17px;">
-			<input type="file" accept="image/*" [(ngModel)]="imageName"  (change)="upload($event)">
+		<div style="margin-top: 15px;font-size: 17px;">
+			<input type="file" accept=".png,.jpg" [(ngModel)]="imageName"  (change)="upload($event)">
 		</div>
-		<div style="margin-top: 30px;">
+		<div style="margin-top: 15px;">
 			<label class="label" for="input-email">Ads description:</label>
 		</div>
-		<div>
+		<div class="t">
 			<textarea style="width:100%;" rows="5" [(ngModel)]="description"></textarea>
 		</div>
-		<button type="button" class="save" (click)="createAds(categoryType)">Save</button>
-		<p style="color:#FF0000" *ngIf="showError">Please fill all fields</p>
+		<button *ngIf="!showEditBtn" type="button" class="save" (click)="createAds(categoryType)">Save</button>
+		<button *ngIf="showEditBtn" type="button" class="save" (click)="editAds(categoryType)">Update</button>
+		<p style="color:#FF0000" *ngIf="showError">Please fill all required field</p>
 		<p style="color:#00FF00" *ngIf="showSuccess">Data save successfully</p>
 	</div>
 	<div class="col-md-3"></div>
