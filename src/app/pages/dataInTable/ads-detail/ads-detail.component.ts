@@ -37,7 +37,6 @@ export class AdsDetailComponent {
   loadAds(data){
     var me = this;
     me.loader = true;
-    console.log("data---",data);
     me.active = data;
     me.ads = false;
     me.adsData = [];
@@ -52,9 +51,7 @@ export class AdsDetailComponent {
           for(var i=0;i<me.groupid.length;i++){
             for(var j=0;j<val.length;j++){
               if(i==j){
-                console.log("In");
-                val[j].groupid = me.groupid[i]
-                 console.log("In---->",val);
+                val[j].groupid = me.groupid[i];
               }
             }
           }
@@ -75,7 +72,6 @@ export class AdsDetailComponent {
             me.adsData.push(Ads);
           }
         }
-        console.log("value",me.adsData);
         if(me.adsData.length == 0){
           me.emptyTable = true;
         }else{

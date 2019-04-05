@@ -38,14 +38,7 @@ export class groupComponent {
       for(var data in group.val()){
          //var msg = me.tripeDateValidation(group.val()[data].tripeDate,group.val()[data].startTime,group.val()[data].endTime);
         
-          var currentDate = new Date();
-          var startDate = new Date(group.val()[data].startDateTime);
-          var endDate = new Date(group.val()[data].endDateTIme);
-          if(startDate.getTime() <= currentDate.getTime() && endDate.getTime() >= currentDate.getTime()){
-           status = "Active";
-          }else{
-            status = "Inactive";
-          }
+        
           groupKey.push(group.val()[data].groupId);
           groupData.push(group.val()[data]);
           key.push(data);
@@ -67,6 +60,15 @@ export class groupComponent {
               }else{
                 me.member = 0;
               }
+               var currentDate = new Date();
+              var startDate = new Date(groupData[count2].startDateTime);
+              var endDate = new Date(groupData[count2].endDateTIme);
+              // console.log("--->",    startDate.getTime() <= currentDate.getTime()  ,"  --->" ,  endDate.getTime() >= currentDate.getTime() )
+              // if(startDate.getTime() <= currentDate.getTime() && endDate.getTime() >= currentDate.getTime()){
+              //  status = "Active";
+              // }else{
+              //   status = "Inactive";
+              // }
                 var value = {
                   endTime : groupData[count2].endTime,
                   groupId:  groupData[count2].groupId,
@@ -76,7 +78,7 @@ export class groupComponent {
                   type :  groupData[count2].type,
                   member: me.member,
                   chat: me.chat,
-                  activeStatus : status,
+                  activeStatus : groupData[count2].groupActivated == true ? 'Active' : 'Inactive',
                   key : key[count2],
                   arrival: groupData[count2].arrivalCity,
                   departure: groupData[count2].departureCity,

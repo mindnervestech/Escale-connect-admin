@@ -26,7 +26,7 @@ export class ECommerceComponent {
 	private allField = false;
 	private value = "";
 	private optionSelect = false;
-	private journyType: any;
+	private journyType: string = '';
 	upload: boolean = true;
 	private journeyTypeData = [{id: 1, name: 'Train'},{id: 2, name:'Flight'}]
 	arrayBuffer:any;
@@ -83,8 +83,7 @@ export class ECommerceComponent {
             var first_sheet_name = workbook.SheetNames[0];
             var worksheet = workbook.Sheets[first_sheet_name];
             console.log(XLSX.utils.sheet_to_json(worksheet,{raw:true}));
-        	var groupChatData = XLSX.utils.sheet_to_json(worksheet)
-        	
+        	var groupChatData = XLSX.utils.sheet_to_json(worksheet);
         	//looping for save data in firebase in group table
         	for (var i = 0; i < groupChatData.length; i++) {
 		     	var startTime = "";
@@ -130,7 +129,7 @@ export class ECommerceComponent {
 		    }
         }
         me.success = true;
-        me.journyType = '';
+        //me.journyType = '';
         fileReader.readAsArrayBuffer(this.file);
 	}
 
