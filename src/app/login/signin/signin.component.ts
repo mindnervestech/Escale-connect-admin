@@ -16,6 +16,7 @@ export class SigninComponent {
 	private validData = false;
 	private emptyEmail = false;
 	private emptyPassword = false;
+  public loader: boolean = false;
 
 	constructor(private db: AngularFireDatabase,private router: Router,private route: ActivatedRoute){
    /* var user = JSON.parse(localStorage.getItem("user"));
@@ -29,11 +30,14 @@ export class SigninComponent {
 	}
 	login(){
   	var me = this;
+    me.loader = true;
   	if(me.email == ""){
   		me.emptyEmail = true;
+      me.loader = false;
   	}
   	if(me.password == ""){
   		me.emptyPassword = true;
+      me.loader = false;
   	}
   	if(me.validData == false && me.emptyPassword == false && me.emptyEmail == false){
   		firebase.auth().signInWithEmailAndPassword(me.email, me.password).then(function (user) {
@@ -51,6 +55,7 @@ export class SigninComponent {
           //window.location.reload();
         });
   		 me.router.navigate(["pages/dashboard"]);
+       me.loader = false;
 	  	}).catch(function(error) {
 		  console.log(error);
 		  me.validData = true;
