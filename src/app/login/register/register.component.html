@@ -19,19 +19,22 @@
 				<label class="label" for="input-email">Email address:</label>
 			</div>
 			<div>
-				<input type="text" name="eamil" placeholder="Email address" class="input-field" [(ngModel)]="email" (ngModelChange) = "checkEmail($enent)">
+				<input type="text" name="eamil" placeholder="Email address" class="input-field" [(ngModel)]="email" (ngModelChange) = "checkEmail($enent)" autocomplete="off">
 				<div *ngIf="emptyEmail" class="invalid-feedback">
 					Email is required!
 				</div>
 				<div *ngIf="validEmail" class="invalid-feedback">
 					Inviled Email address!
 				</div>
+				<div *ngIf="emailUsed" class="invalid-feedback">
+					The email address is already in use.
+				</div>
 			</div>
 			<div class="margin-top30">
 				<label class="label" for="input-email">Password:</label>
 			</div>
 			<div>
-				<input type="password" name="password" placeholder="Password" class="input-field" [(ngModel)]="password" (ngModelChange) = "checkPassword($enent)">
+				<input type="password" name="password" placeholder="Password" class="input-field" [(ngModel)]="password" (ngModelChange) = "checkPassword($enent)" autocomplete="new-password">
 				<div *ngIf="emptyPassword" class="invalid-feedback">
 					Password is required!
 				</div>
@@ -47,14 +50,17 @@
 				<div *ngIf="passwordMatch" class="invalid-feedback">
 					Password not match!
 				</div>
-				<div *ngIf="emailUsed" class="invalid-feedback">
-					The email address is already in use by another account!
+				<div *ngIf="passwordLength" class="invalid-feedback">
+					Password should be at least 6 character.
 				</div>
 			</div>
 			<div>
 				<button class="login-btn" (click)="Ragester()">
 			    Register
 			  </button>
+			</div>
+			<div *ngIf="success" class="register-feedback">
+					You have successfully registered.
 			</div>
 		</div>
 		<div class="col-md-3"></div>

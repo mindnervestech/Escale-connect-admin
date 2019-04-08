@@ -23,6 +23,7 @@ export class RegisterComponent {
 	private passwordMatch = false;
 	private emailUsed = false;
 	private success: boolean = false;
+	private passwordLength: boolean = false;
 	constructor(private db: AngularFireDatabase,private router: Router,private route: ActivatedRoute){
 
 	}
@@ -52,7 +53,11 @@ export class RegisterComponent {
 	}else{
 		me.passwordMatch = false;
 	}
-	
+	console.log("me.password.length",me.confirmPassword.length);
+	if(me.password.length >= 6 && me.confirmPassword.length >= 6){
+		me.passwordLength = true;
+		console.log("--")
+	}
 	 if(me.email != ''){
           var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
           if (reg.test(me.email) == false) 
@@ -61,16 +66,19 @@ export class RegisterComponent {
           }else{
             me.validEmail = false;
           }
-        }
+    }
     if(me.passwordMatch == false && me.emptyName == false && me.emptyEmail == false && me.validEmail == false && me.emptyPassword == false && me.emptyConfirmPassword == false){
     	firebase.auth().createUserWithEmailAndPassword(me.email,me.password).then(function (user) {
 			console.log(user);
 			me.db.list('/adminUser').push(data);
 			me.success = true;
-			me.router.navigate(["login/signin"]);
+			//me.router.navigate(["login/signin"]);
+			// me.passwordLength = false;
+			// me.emailUsed = false;
 		}).catch(function(error) {
 		  console.log(error);
-		  me.emailUsed = true;
+		  // me.emailUsed = true;
+
 		});
     }
   }
