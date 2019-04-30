@@ -14,6 +14,7 @@ export class groupComponent {
   member = 0;
   chat = 0;
   active: string = '';
+  allUser: any;
   public loader: boolean = false;
   constructor(private db: AngularFireDatabase,private router: Router) {
    /* var user = JSON.parse(localStorage.getItem("user"));
@@ -24,6 +25,11 @@ export class groupComponent {
 
   ngOnInit(){
     //var group : any;
+    this.loadAllGroup();  
+    this.getAllUser();
+  }
+
+  loadAllGroup(){
     var me = this;
     me.loader = true;
     firebase.database().ref('/Group').on('value',function(group){
@@ -101,6 +107,25 @@ export class groupComponent {
     });
   }
 
+  getAllUser(){
+    let me = this;
+    firebase.database().ref('/users').on('value',function(group){
+      me.allUser = Object.keys(group.val()).length
+    });
+  }
+  refreshRooom(){
+    let me = this;
+    me.loader = true;
+    me.groupList = [];
+    me.allUser = '';
+    me.loadAllGroup();  
+    me.getAllUser(); 
+    if(me.groupList.length > 0){
+      me.loader = false;
+    }else{
+      me.loader = true;
+    }
+  }
   goToGroupChatShoePage(data){
     console.log(data.groupId);
     this.router.navigate(["pages/groupChat"],{queryParams:{groupId : data.groupId}});

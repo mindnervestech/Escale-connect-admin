@@ -10,6 +10,12 @@
 		</div>
 	</div>
 </div>
+<div class="row">
+	<div class="col-md-6">
+		<p style="display: inline;">Total number of user <span class="badges"><b>{{allUser}}</b></span></p>
+		<button type="button" class="navigate1" (click)="refreshRooom()">Refesh</button>
+	</div>	
+</div>
 <div class="card" style="margin-top: 20px;">
 	<div *ngIf="emptyTable" style="text-align: center;font-size: 20px;margin-bottom: 20px;">
 		In system group not available
@@ -32,7 +38,7 @@
 		<tbody>
 			<tr *ngFor="let data of groupList" (click)="goToGroupChatShoePage(data)" style="cursor: pointer;">
 				<td class="table-th" style="width: 16%;cursor: pointer;">{{data.type}} {{data.trainNumber}} departure from {{data.departure}} and arrival at {{data.arrival}}</td>
-				<td class="table-th" style="width: 13.5%;" >{{data.trainNumber}}</td>
+				<td class="table-th" style="width: 13.5%;">{{data.trainNumber}}</td>
 				<td class="table-th" style="width: 13.5%;">{{data.startTime}}</td>
 				<td class="table-th" style="width: 13.5%;">{{data.endTime}}</td>
 				<td class="table-th" style="width: 12%;">{{data.type}}</td>

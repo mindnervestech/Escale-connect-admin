@@ -78,6 +78,13 @@ h1{
     background: #3d3780;
     color: #fff;
 }
+.navigate1{
+    padding: 7px 9px;
+    border: 0;
+    background: #3d3780;
+    color: #fff;
+    margin-left: 25px;
+}
 .badges{
     width: fit-content;
     height: fit-content;
