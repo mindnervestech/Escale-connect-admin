@@ -16,6 +16,8 @@ export class groupComponent {
   active: string = '';
   allUser: any;
   public loader: boolean = false;
+  callOne: boolean = false;
+  all = [];
   constructor(private db: AngularFireDatabase,private router: Router) {
    /* var user = JSON.parse(localStorage.getItem("user"));
         if (user == null) {
@@ -32,6 +34,7 @@ export class groupComponent {
   loadAllGroup(){
     var me = this;
     me.loader = true;
+    me.callOne = true;
     firebase.database().ref('/Group').on('value',function(group){
       me.groupList = [];
       var groupKey = [];
@@ -44,7 +47,7 @@ export class groupComponent {
       for(var data in group.val()){
          //var msg = me.tripeDateValidation(group.val()[data].tripeDate,group.val()[data].startTime,group.val()[data].endTime);
         
-        
+        if(me.callOne == true){
           groupKey.push(group.val()[data].groupId);
           groupData.push(group.val()[data]);
           key.push(data);
@@ -91,7 +94,6 @@ export class groupComponent {
                };
                me.groupList.push(value);  
                count2++;
-              
                if(me.groupList.length == 0){
                   me.emptyTable = true;
                 }else{
@@ -102,16 +104,38 @@ export class groupComponent {
             
           });  
           count1++;
+        }  
       }
-      
+      me.callOne = false;
     });
   }
 
   getAllUser(){
     let me = this;
-    firebase.database().ref('/users').on('value',function(group){
-      me.allUser = Object.keys(group.val()).length
-    });
+    var item = localStorage.getItem("userdate");
+    me.allUser = 0;
+    me.all = [];
+    if(!item){
+      firebase.database().ref('/users').on('value',function(group){
+        me.allUser = Object.keys(group.val()).length
+      });
+    }else{
+
+      var resetDate = JSON.parse(localStorage.getItem("userdate"));
+      var t = new Date(resetDate);
+      firebase.database().ref('/users').on('value',function(group){
+        for(var data in group.val()){
+          var mydate = new Date(group.val()[data].created);
+         if(mydate > t){
+            // console.log("-----",group.val()[data]);   
+            // me.allUser = Object.keys(group.val()).length;
+            me.all.push(group.val()[data]);
+            console.log("me.allUser----------",me.all);
+            me.allUser = me.all.length;
+          }
+        }
+      });
+    }
   }
   refreshRooom(){
     let me = this;
@@ -126,6 +150,14 @@ export class groupComponent {
       me.loader = true;
     }
   }
+  restartUser(){
+    let me = this;
+    var date = new Date();
+    var timestamp = date.getTime();
+    me.allUser = 0;
+    localStorage.setItem("userdate", JSON.stringify(timestamp))
+  }
+
   goToGroupChatShoePage(data){
     console.log(data.groupId);
     this.router.navigate(["pages/groupChat"],{queryParams:{groupId : data.groupId}});

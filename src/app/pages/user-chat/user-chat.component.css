@@ -5,13 +5,14 @@
  color: #fff;
 }
 .card{
-    max-height: 520px;
+    max-height: 493px;
     padding: 25px 10px 0px;
     border-radius: 10px;
     border: solid 1px #ffffff;
     background-color: #ffffff;
     -webkit-box-shadow: 5px 5px 5px 0 #a4abb373;
     box-shadow: none;
+    overflow-y: auto;
 }
 .card1{
     height: auto;
