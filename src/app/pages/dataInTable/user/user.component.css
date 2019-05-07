@@ -17,3 +17,7 @@
     background-color: #3d3780;
     box-shadow: 5px 5px 5px 0 #a4abb373;
 }
+button, html [type="button"], [type="reset"], [type="submit"] {
+    -webkit-appearance: button;
+    cursor: pointer;
+}

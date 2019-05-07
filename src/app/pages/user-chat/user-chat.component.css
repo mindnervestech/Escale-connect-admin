@@ -4,6 +4,10 @@
 ::-ms-input-placeholder { 
  color: #fff;
 }
+button, html [type="button"], [type="reset"], [type="submit"] {
+    -webkit-appearance: button;
+    cursor: pointer;
+}
 .card{
     max-height: 493px;
     padding: 25px 10px 0px;

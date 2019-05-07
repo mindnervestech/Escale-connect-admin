@@ -18,6 +18,7 @@ export class groupComponent {
   public loader: boolean = false;
   callOne: boolean = false;
   all = [];
+  oneTimeuser: boolean = false;
   constructor(private db: AngularFireDatabase,private router: Router) {
    /* var user = JSON.parse(localStorage.getItem("user"));
         if (user == null) {
@@ -115,25 +116,32 @@ export class groupComponent {
     var item = localStorage.getItem("userdate");
     me.allUser = 0;
     me.all = [];
+    me.oneTimeuser = true;
     if(!item){
       firebase.database().ref('/users').on('value',function(group){
-        me.allUser = Object.keys(group.val()).length
+        if(me.oneTimeuser == true){
+          me.allUser = Object.keys(group.val()).length
+        }
+        me.oneTimeuser = false;
       });
     }else{
 
       var resetDate = JSON.parse(localStorage.getItem("userdate"));
       var t = new Date(resetDate);
       firebase.database().ref('/users').on('value',function(group){
-        for(var data in group.val()){
-          var mydate = new Date(group.val()[data].created);
-         if(mydate > t){
-            // console.log("-----",group.val()[data]);   
-            // me.allUser = Object.keys(group.val()).length;
-            me.all.push(group.val()[data]);
-            console.log("me.allUser----------",me.all);
-            me.allUser = me.all.length;
+        if(me.oneTimeuser == true){
+          for(var data in group.val()){
+            var mydate = new Date(group.val()[data].created);
+           if(mydate > t){
+              // console.log("-----",group.val()[data]);   
+              // me.allUser = Object.keys(group.val()).length;
+              me.all.push(group.val()[data]);
+              console.log("me.allUser----------",me.all);
+              me.allUser = me.all.length;
+            }
           }
-        }
+        }   
+        me.oneTimeuser = false;
       });
     }
   }
@@ -141,14 +149,16 @@ export class groupComponent {
     let me = this;
     me.loader = true;
     me.groupList = [];
-    me.allUser = '';
-    me.loadAllGroup();  
-    me.getAllUser(); 
-    if(me.groupList.length > 0){
-      me.loader = false;
-    }else{
-      me.loader = true;
-    }
+    me.allUser = 0;
+    setTimeout(()=>{
+      me.loadAllGroup()  
+      me.getAllUser();
+    },100);
+    // if(me.groupList.length > 0){
+    //   me.loader = false;
+    // }else{
+    //   me.loader = true;
+    // }
   }
   restartUser(){
     let me = this;

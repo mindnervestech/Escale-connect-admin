@@ -72,7 +72,7 @@ export class RegisterComponent {
 			console.log(user);
 			me.db.list('/adminUser').push(data);
 			me.success = true;
-			//me.router.navigate(["login/signin"]);
+			me.router.navigate(["login/signin"]);
 			// me.passwordLength = false;
 			// me.emailUsed = false;
 		}).catch(function(error) {

@@ -1,3 +1,7 @@
+button, html [type="button"], [type="reset"], [type="submit"] {
+    -webkit-appearance: button;
+    cursor: pointer;
+}
 .loader {
   border: 5px solid #f3f3f3;
     border-radius: 50%;
