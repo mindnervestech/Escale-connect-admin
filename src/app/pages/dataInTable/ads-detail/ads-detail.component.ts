@@ -45,7 +45,6 @@ export class AdsDetailComponent {
         var data = group.val();
         for(var value in data){
           me.groupkey = value;
-          console.log(data[value]);
           var val = Object.keys(data[value]).map(key => data[value][key]);
           me.groupid = Object.keys(data[value]);  
           for(var i=0;i<me.groupid.length;i++){
@@ -57,7 +56,6 @@ export class AdsDetailComponent {
           }
           for(var d in val){
             var Ads = {
-                //date: dateFormat,
                 description: val[d].description,
                 link: val[d].link,
                 title: val[d].title,
@@ -71,6 +69,11 @@ export class AdsDetailComponent {
              //console.log("-------",val[d].title);
             me.adsData.push(Ads);
           }
+          me.adsData = me.adsData.sort(function(a,b){
+            var nameA = a.number.toLowerCase(), nameB = b.number.toLowerCase();
+             if (nameA < nameB) //sort string ascending
+              return -1;
+         });
         }
         if(me.adsData.length == 0){
           me.emptyTable = true;
@@ -96,7 +99,7 @@ export class AdsDetailComponent {
   }
   deleteGroup(data){
     this.deleteEntity(data);
-    this.loadAds('business');
+    this.loadAds(data.category);
   }
   editAds(data){
     localStorage.setItem("editad", JSON.stringify(data));

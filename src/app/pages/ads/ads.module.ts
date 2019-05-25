@@ -7,6 +7,7 @@ import { AdsComponent } from './ads.component';
 import { ChartModule } from 'angular2-chartjs';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { AutocompleteModule } from 'ng2-input-autocomplete';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
   imports: [
     ThemeModule,
@@ -14,7 +15,8 @@ import { AutocompleteModule } from 'ng2-input-autocomplete';
     NgxEchartsModule,
     NgxChartsModule,
     LeafletModule,
-    AutocompleteModule
+    AutocompleteModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   declarations: [
     AdsComponent

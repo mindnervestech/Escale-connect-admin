@@ -1,3 +1,4 @@
+<div class="loader" *ngIf="!loader"></div>
 <div style="text-align: center;font-weight: 600;">
 	<h1 style="color:#000;margin-top: 0px;margin-bottom: 0px;">Create Ads</h1>
 </div>
@@ -15,7 +16,7 @@
 				<div style="margin-top: 15px;">
 					<label class="label" for="input-email">Ads category <span style="color:red;">*</span></label>
 				</div>
-				<div *ngIf="!showEditBtn">
+				<!-- <div *ngIf="!showEditBtn">
 					<select [(ngModel)]="categoryType" required>
 						<option value="" disabled selected>Select your category</option>
 						<option  *ngFor="let category of categoryTypeData" [ngValue]="category">{{category}}</option>
@@ -26,7 +27,16 @@
 						<option value="" disabled selected>Select your category</option>
 						<option  *ngFor="let category of categoryTypeData" [ngValue]="category">{{category}}</option>
 					</select>
-				</div>
+				</div> -->
+				<ng-multiselect-dropdown
+				  [placeholder]="'Select category'"
+				  [data]="dropdownList"
+				  [(ngModel)]="categoryType"
+				  [settings]="dropdownSettings"
+				  (onSelect)="onItemSelect($event)"
+				  (onSelectAll)="onSelectAll($event)"
+				>
+				</ng-multiselect-dropdown>
 			</div>	
 			<div class="div-divide">
 				<div style="margin-top: 15px;">
@@ -43,7 +53,7 @@
 		<div style="margin-top: 15px;">
 			<label class="label" for="input-email">Select room <span style="color:red;">*</span></label>
 		</div>
-		<div *ngIf="!showEditBtn">
+		<!-- <div *ngIf="!showEditBtn">
 			<input class="in" [(ngModel)]="selectedItem" placeholder="Select room" autocomplete [config]="config2" [items]="items2"
 	      	(inputChangedEvent)="onInputChangedEvent($event)"
 	      	(selectEvent)="onSelect($event)">
@@ -52,7 +62,18 @@
 			<input class="in" [(ngModel)]="selectedItem" placeholder="Select room" autocomplete [config]="config2" [items]="items2"
 	      	(inputChangedEvent)="onInputChangedEvent($event)"
 	      	(selectEvent)="onSelect($event)" disabled>
-		</div>
+		</div> -->
+		<span *ngIf="loader">
+			<ng-multiselect-dropdown
+			  [placeholder]="'Select Room'"
+			  [data]="dropdownListGroup"
+			  [(ngModel)]="selectedItem"
+			  [settings]="dropdownGroupSettings"
+			  (onSelect)="onItemSelectRoom($event)"
+			  (onSelectAll)="onSelectAllRoom($event)"
+			>
+			</ng-multiselect-dropdown>
+		</span>
 		<div style="margin-top: 15px;">
 			<label class="label" for="input-email">Ads link:</label>
 		</div>

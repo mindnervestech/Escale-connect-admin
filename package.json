@@ -71,6 +71,7 @@
     "leaflet": "1.2.0",
     "nebular-icons": "1.1.0",
     "ng-auto-complete": "^4.1.4",
+    "ng-multiselect-dropdown": "^0.2.3",
     "ng2-ckeditor": "^1.2.2",
     "ng2-completer": "2.0.8",
     "ng2-input-autocomplete": "^0.3.5",
