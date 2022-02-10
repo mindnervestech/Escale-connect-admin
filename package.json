@@ -79,7 +79,7 @@
     "ngx-echarts": "^4.0.1",
     "ngx-spinner": "^7.0.0",
     "ngx-ui-loader": "^1.2.5",
-    "node-sass": "^4.11.0",
+    "node-sass": "^7.0.0",
     "normalize.css": "6.0.0",
     "pace-js": "1.0.2",
     "roboto-fontface": "0.8.0",
